@@ -1,0 +1,2 @@
+# Ne conserve pas les fichiers compilés avec VS C++
+*.exe
