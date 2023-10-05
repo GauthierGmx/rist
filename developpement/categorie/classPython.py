@@ -17,7 +17,7 @@ class Activité :
         self.score = 10
         
 
-class Utilisateur() : 
+class Utilisateur() :  
     
     def __init__(self, categoriePref, coord, budget) :
         self.categoriePref = categoriePref
@@ -31,12 +31,12 @@ Pétanque = Activité("sport de boules",
                     [43.49281925929006, -1.4634094451827353])
 
 Piscine = Activité("sport de nage",
-                    15,
+                    40,
                     [43.549199652585166, -1.4886500797448665])
 
 ZLan = Activité("E-sport",
-                0,
-                [44.19396436664341, -0.9408293479724416])
+                45,
+                [43.7789654123, -1.4874578752491052])
 
 
 Axel = Utilisateur("sport de boules",[44.21374590883253, -0.9168396728192396], 30)
@@ -97,22 +97,35 @@ def recommandationFroids(utilisateur,liste) :
         if 50 < dist <= 100 :
             activite.score *= 1.5
             
-        
-        
+            
 
-    
-    
-    # ÉTAPE 2 ->  le prix (le prix doit etre le plus proche de celui de l'utilisateur ou en dessous)
+        if activite.prix < utilisateur.budget:
+            print("l'activite", activite, " a été multipliée par 1.8")
+            activite.score *= 1.8
+            
+        elif utilisateur.budget <= activite.prix < utilisateur.budget * 1.1:
+            print("l'activite", activite, " a été multipliée par 1.5")
+            activite.score *= 1.5
+            
+        elif utilisateur.budget*1.1 <= activite.prix < utilisateur.budget * 1.25:
+            print("l'activite", activite, " a été multipliée par 1.25")
+            activite.score *= 1.3
+            
+        elif utilisateur.budget *1.25 <= activite.prix < utilisateur.budget * 1.5:
+            print("l'activite", activite, " a été multipliée par 1.25")
+            activite.score *= 1.1
+        
+        
+        else : 
+            print("le score reste inchangé")
+        
     
     # ÉTAPE 3 -> les catégories pref
     
     
- 
 '''
 TEST DISTANCES
 '''
 
 recommandationFroids(Axel,listeActivité)    
-    
-    
     
