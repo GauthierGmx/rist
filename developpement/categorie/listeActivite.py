@@ -11,4 +11,4 @@ Loisir = ["Pêche","Randonnée","Jeux de société","Jeu de piste","Escape Game"
 Sortie = ["Soirée","Festival","Convention","Concert","Bar","Apéro","Repas","Pique-nique","Promenade","Visite"]
 Voyage = ["Voyage en liberté","Voyage guidé","Voyage itinérant","Séjour à l'hotel","Voyage semi-itinérant","Tour du monde","Croisière","Trek","Road Trip","Camping","Auto-Stop","Covoiturage"]
 
-Activité = {'Art':Art,'Danse':Danse,'Loisir':Loisir,'Sortie':Sortie,'Voyage':Voyage}
+Activite = {'Art':Art,'Danse':Danse,'Loisir':Loisir,'Sortie':Sortie,'Voyage':Voyage}
