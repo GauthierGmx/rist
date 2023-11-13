@@ -6,8 +6,7 @@ This is a temporary script file.
 """
 
 Athletisme = ["Marche","Course à pied","Lancers","Sauts","Épreuves combinées"]
-Sport_collectif=["Baseball","Basket-ball","Cricket","Football","Football américain","Handball",
-                  "Hockey","Polo","Rugby","Volley-ball"]
+Sport_collectif=["Baseball","Basket-ball","Cricket","Football","Football américain","Handball","Polo","Rugby","Volley-ball"]
 Sport_force=["Haltérophilie","Powerlifting","Tir à la corde"]
 Sport_mecanique=["Karting","Moto"]
 Sport_raquette=["Badminton","Squash","Tennis","Ping pong","Jeu de Paume","Pelote basque"]
