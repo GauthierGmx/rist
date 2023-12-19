@@ -1,4 +1,6 @@
 <?php
+//FAIRE CALCUL NB PERSONNES POUR BUDGET
+
 
 #CONNEXION A LA BASE DE DONNEES
     $bdd= "gvernis_cms"; // Base de données 
@@ -30,7 +32,7 @@
         echo "<p>Coordonnées GPS x : $coordGPS[0]</p>"; // X
         echo "<p>Coordonnées GPS y : $coordGPS[1]</p>"; // Y
 
-    #Le budget de l'utilisateur
+    #Le budget saisi de l'utilisateur
         echo "<br>";
         $query = "SELECT budget
         FROM Rist_Utilisateur
@@ -39,11 +41,28 @@
                 
         // Boucle à travers les résultats
         while ($donnees = mysqli_fetch_assoc($result)) {
-            $budget = $donnees["budget"];
+            $budgetSaisi = $donnees["budget"];
         }
 
         // Afficher les résultats
-        echo "<p>Budget x : $budget</p>";
+        echo "<p>Budget saisi : $budgetSaisi</p>";
+    
+    #Le budget moyen de l'utilisateur
+    echo "<br>";
+        $query = "SELECT AVG(A.prix) as prix
+        FROM Rist_Activite A
+        JOIN Rist_Participer P ON A.idActivite = P.idActivite
+        WHERE P.pseudonyme = '$pseudonyme'
+        AND A.dateRdv<DATE('2024-12-19')";
+        $result= mysqli_query($link,$query);
+                
+        // Boucle à travers les résultats
+        while ($donnees = mysqli_fetch_assoc($result)) {
+            $budgetMoyen = round($donnees["prix"], 2);
+        }
+
+        // Afficher les résultats
+        echo "<p>Budget saisi : $budgetMoyen</p>";
     
     #Les 3 categories preferees de l'utilisateur
         echo "<br>";
@@ -76,8 +95,9 @@
         JOIN Rist_Activite A ON Co.idActivite = A.idActivite
         JOIN Rist_Participer P ON A.idActivite = P.idActivite
         WHERE P.pseudonyme = '$pseudonyme'
+        AND A.dateRdv<DATE('2024-12-19')
         GROUP BY Ca.nomCategorie
-        ORDER BY COUNT(Ca.nomCategorie) DESC
+        ORDER BY COUNT(Ca.nomCategorie) DESC, Ca.nomCategorie ASC
         LIMIT 3";
 
         $result= mysqli_query($link,$query);
