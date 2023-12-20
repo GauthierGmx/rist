@@ -1,6 +1,4 @@
 <?php
-//FAIRE CALCUL NB PERSONNES POUR BUDGET
-
 
 #CONNEXION A LA BASE DE DONNEES
     $bdd= "gvernis_cms"; // Base de données 
