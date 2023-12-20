@@ -1,0 +1,1 @@
+SELECT AVG(Rist_Activite.prix) FROM Rist_Activite JOIN Rist_Participer ON Rist_Participer.idActivite = Rist_Activite.idActivite WHERE Rist_Participer.pseudonyme = '$pseudo';
