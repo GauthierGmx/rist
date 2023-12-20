@@ -49,70 +49,73 @@
     
     #Le budget moyen de l'utilisateur
     echo "<br>";
-        $query = "SELECT AVG(A.prix) as prix
-        FROM Rist_Activite A
-        JOIN Rist_Participer P ON A.idActivite = P.idActivite
-        WHERE P.pseudonyme = '$pseudonyme'
-        AND A.dateRdv<DATE('2024-12-19')";
+        $query = "SELECT AVG(prix_moyen) AS moyennePrix
+        FROM (
+            SELECT A.idActivite, A.prix/COUNT(P.idActivite) AS prix_moyen
+            FROM Rist_Participer P
+            JOIN Rist_Activite A ON P.idActivite = A.idActivite
+            WHERE A.idActivite IN (SELECT idActivite 
+                                  FROM Rist_Participer
+                                  WHERE pseudonyme = '$pseudonyme')
+            AND A.dateRdv < DATE('2024-12-19')
+            GROUP BY A.idActivite
+        ) AS subquery";
         $result= mysqli_query($link,$query);
                 
         // Boucle à travers les résultats
         while ($donnees = mysqli_fetch_assoc($result)) {
-            $budgetMoyen = round($donnees["prix"], 2);
+            $budgetMoyen = round($donnees["moyennePrix"], 2);
         }
 
         // Afficher les résultats
-        echo "<p>Budget saisi : $budgetMoyen</p>";
+        echo "<p>Budget moyen : $budgetMoyen</p>";
     
     #Les 3 categories preferees de l'utilisateur
         echo "<br>";
         $query = "SELECT C.nomCategorie 
-        FROM Rist_Categorie C
-        JOIN Rist_Preferer P ON C.nomCategorie=P.nomCategorie
-        JOIN Rist_Utilisateur U ON P.pseudonyme=U.pseudonyme
-        WHERE P.pseudonyme='$pseudonyme'";
-
-        $result= mysqli_query($link,$query);
-        $categoriePref1 = $categoriePref2 = $categoriePref3 = "";
-
-        // Boucle à travers les résultats
-        $i = 1;
+            FROM Rist_Categorie C
+            JOIN Rist_Preferer P ON C.nomCategorie=P.nomCategorie
+            JOIN Rist_Utilisateur U ON P.pseudonyme=U.pseudonyme
+            WHERE P.pseudonyme='$pseudonyme'";
+        
+        $result = mysqli_query($link, $query);
+        
+        $categories = array();
+        
+        // Fetch categories and store them in an array
         while ($donnees = mysqli_fetch_assoc($result)) {
-            ${"categoriePref" . $i} = $donnees["nomCategorie"];
-            $i++;
+            $categories[] = $donnees["nomCategorie"];
         }
-
-        // Afficher les résultats
-        echo "<p>Catégorie préférée 1 : $categoriePref1</p>";
-        echo "<p>Catégorie préférée 2 : $categoriePref2</p>";
-        echo "<p>Catégorie préférée 3 : $categoriePref3</p>";
+        
+        // Display the preferred categories
+        for ($i = 1; $i <= count($categories); $i++) {
+            echo "<p>Catégorie préférée $i : {$categories[$i - 1]}</p>";
+        }
         
     #Les 3 categories les plus récurrentes dans l'historique de l'utilisateur
         echo "<br>";
         $query = "SELECT Ca.nomCategorie, COUNT(Ca.nomCategorie) 
-        FROM Rist_Categorie Ca
-        JOIN Rist_Correspondre Co ON Ca.nomCategorie = Co.nomCategorie
-        JOIN Rist_Activite A ON Co.idActivite = A.idActivite
-        JOIN Rist_Participer P ON A.idActivite = P.idActivite
-        WHERE P.pseudonyme = '$pseudonyme'
-        AND A.dateRdv<DATE('2024-12-19')
-        GROUP BY Ca.nomCategorie
-        ORDER BY COUNT(Ca.nomCategorie) DESC, Ca.nomCategorie ASC
-        LIMIT 3";
-
-        $result= mysqli_query($link,$query);
-        $categorieHist1 = $categorieHist2 = $categorieHist3 = "";
-
-        // Boucle à travers les résultats
-        $i = 1;
+            FROM Rist_Categorie Ca
+            JOIN Rist_Correspondre Co ON Ca.nomCategorie = Co.nomCategorie
+            JOIN Rist_Activite A ON Co.idActivite = A.idActivite
+            JOIN Rist_Participer P ON A.idActivite = P.idActivite
+            WHERE P.pseudonyme = '$pseudonyme'
+            AND A.dateRdv<DATE('2024-12-19')
+            GROUP BY Ca.nomCategorie
+            ORDER BY COUNT(Ca.nomCategorie) DESC, Ca.nomCategorie ASC
+            LIMIT 3";
+        
+        $result = mysqli_query($link, $query);
+        
+        $categoriesHist = array();
+        
+        // Fetch categories and store them in an array
         while ($donnees = mysqli_fetch_assoc($result)) {
-            ${"categorieHist" . $i} = $donnees["nomCategorie"];
-            $i++;
+            $categoriesHist[] = $donnees["nomCategorie"];
         }
-
-        // Afficher les résultats
-        echo "<p>Catégorie récurrente 1 : $categorieHist1</p>";
-        echo "<p>Catégorie récurrente 2 : $categorieHist2</p>";
-        echo "<p>Catégorie récurrente 3 : $categorieHist3</p>";
-
+        
+        // Display the recurrent categories
+        for ($i = 1; $i <= count($categoriesHist); $i++) {
+            echo "<p>Catégorie récurrente $i : {$categoriesHist[$i - 1]}</p>";
+        }
 ?>
