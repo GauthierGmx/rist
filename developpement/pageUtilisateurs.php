@@ -16,7 +16,7 @@ function recupererCoordGPS($link,$pseudonyme){
     FROM Rist_Utilisateur
     WHERE pseudonyme='$pseudonyme'";
     $result= mysqli_query($link,$query);
-            
+        
     // Boucle à travers les résultats
     while ($donnees = mysqli_fetch_assoc($result)) {
         $coordGPS = $donnees["coordGPS"];
@@ -89,21 +89,25 @@ function recupererCategoriesPref($link,$pseudonyme){
 
     $categories = array();
 
-    // Fetch categories and store them in an array
+    // Boucle à travers les résultats
     while ($donnees = mysqli_fetch_assoc($result)) {
         $categoriesPref[] = $donnees["nomCategorie"];
     }
 
-    // Display the preferred categories
+    echo "<ul>";
     for ($i = 1; $i <= count($categoriesPref); $i++) {
-        echo "<p>Catégorie préférée $i : {$categoriesPref[$i - 1]}</p>";
+        echo "<li>Catégorie préférée $i : {$categoriesPref[$i - 1]}</li>";
     }
+    echo "</ul>";
+    
     return $categoriesPref;
 }
 
 function recupererCategoriesHist($link,$pseudonyme){
     #Les 3 categories les plus récurrentes dans l'historique de l'utilisateur
-    echo "<br>";
+    // Récupérer d'abord les catégories préférées
+    $categoriesPref = recupererCategoriesPref($link, $pseudonyme);
+    
     $query = "SELECT Ca.nomCategorie, COUNT(Ca.nomCategorie) 
         FROM Rist_Categorie Ca
         JOIN Rist_Correspondre Co ON Ca.nomCategorie = Co.nomCategorie
@@ -119,20 +123,21 @@ function recupererCategoriesHist($link,$pseudonyme){
     
     $categoriesHist = array();
     
-    // Fetch categories and store them in an array
+    // Boucle à travers les résultats
     while ($donnees = mysqli_fetch_assoc($result)) {
         $categoriesHist[] = $donnees["nomCategorie"];
     }
     
-    // Display the recurrent categories
+    echo "<ul>";
     for ($i = 1; $i <= count($categoriesHist); $i++) {
-        echo "<p>Catégorie récurrente $i : {$categoriesHist[$i - 1]}</p>";
+        echo "<li>Catégorie récurrente $i : {$categoriesHist[$i - 1]}</li>";
     }
+    echo "</ul>";
+    $categoriesHist = array_merge($categoriesPref, $categoriesHist); // Fusionner avec les catégories préférées
     return $categoriesHist;
 }
 
-
-#RECUPERATION DES DONNEES
+#INITIALISATION DES DONNEES
 $NB_UTILISATEURS = 3;
 $utilisateurs = array(); // Initialisez un tableau vide
 
@@ -141,6 +146,25 @@ $utilisateurs[] = 'PatPat';
 $utilisateurs[] = 'Laulau64100';
 $utilisateurs[] = 'Sparky';
 
+class Utilisateur {
+    // Attributs
+    public $pseudonyme; // String
+    public $nbActivite; // Int
+    public $coordGPS;   // Array : [0] X ; [1] Y
+    public $budget;     // Int arrondi à 2 chiffres après la virgule
+    public $categories; // Array : [0] catégorie 1 ; [1] catégorie 2 ; [2] catégorie 3
+
+    // Constructeur
+    public function __construct($pseudonyme,$nbActivite,$coordGPS,$budget,$categories){
+        $this->pseudonyme = $pseudonyme;
+        $this->nbActivite = $nbActivite;
+        $this->coordGPS = $coordGPS;
+        $this->budget = $budget;
+        $this->categories = $categories;
+    }
+}
+
+#RECUPERATION DES DONNEES
     for ($i=0; $i < $NB_UTILISATEURS; $i++) {
         $pseudonyme  = $utilisateurs[$i];
         echo "<p>Utilisateur : $pseudonyme</p>";
@@ -158,20 +182,21 @@ $utilisateurs[] = 'Sparky';
         if($nbActivite < 2){
             printf("Nouvel utilisateur avec une participation à $nbActivite activité");
             echo "<br>";
-            recupererCoordGPS($link,$pseudonyme);
-            recupererBudgetSaisi($link,$pseudonyme);
-            recupererCategoriesPref($link,$pseudonyme);
+            $coordGPS = recupererCoordGPS($link,$pseudonyme);
+            $budget = recupererBudgetSaisi($link,$pseudonyme);
+            $categories = recupererCategoriesPref($link,$pseudonyme);
         }
         else{
             printf("Utilisateur habitué avec une participation à $nbActivite activités");
             echo "<br>";
-            recupererCoordGPS($link,$pseudonyme);
-            recupererBudgetMoyen($link,$pseudonyme);
-            recupererCategoriesHist($link,$pseudonyme);
+            $coordGPS = recupererCoordGPS($link,$pseudonyme);
+            $budget = recupererBudgetMoyen($link,$pseudonyme);
+            $categories = recupererCategoriesHist($link,$pseudonyme);
         }
-        echo "<a href='recommandations.php?pseudonyme=$pseudonyme'><button>Voir sa page de recommandation</button></a>";
+        ${"utilisateur" . $i} = new Utilisateur($pseudonyme, $nbActivite, $coordGPS, $budget, $categories);
+        $serializedUser = urlencode(serialize(${"utilisateur" . $i}));
+        echo "<a href='recommandations.php?utilisateur=$serializedUser'>Voir sa page de recommandation</a>";
         echo "<br>";
         echo "------------------------------------------------";
     }
-
 ?>
