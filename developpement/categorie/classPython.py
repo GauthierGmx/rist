@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Spyder Editor
@@ -39,10 +40,10 @@ ZLan = Activité("E-sport",
                 [43.7789654123, -1.4874578752491052])
 
 
-Axel = Utilisateur("sport de boules",[44.21374590883253, -0.9168396728192396], 30)
+Axel = Utilisateur(["sport de boules","animaux",],[44.21374590883253, -0.9168396728192396], 30)
 
 
-listeActivité = [Pétanque,Piscine,ZLan]
+listeActivité = [Pétanque,ZLan,Piscine]
 
 def distance_haversine(unUtilisateur, Uneactivite):
     
@@ -90,37 +91,48 @@ def recommandationFroids(utilisateur,liste) :
         
         if dist <= 15 :
             activite.score *= 2
+            print("l'activite", activite, " a été multipliée par 2")
             
         if 15 < dist <= 50 :
             activite.score *= 1.8
+            print("l'activite", activite, " a été multipliée par 1.8")
         
         if 50 < dist <= 100 :
             activite.score *= 1.5
+            print("l'activite", activite, " a été multipliée par 1.5")
             
+        else : 
+            print("le score reste inchangé")
+        
             
 
         if activite.prix < utilisateur.budget:
             print("l'activite", activite, " a été multipliée par 1.8")
             activite.score *= 1.8
             
-        elif utilisateur.budget <= activite.prix < utilisateur.budget * 1.1:
+        if utilisateur.budget <= activite.prix < utilisateur.budget * 1.1:
             print("l'activite", activite, " a été multipliée par 1.5")
             activite.score *= 1.5
             
-        elif utilisateur.budget*1.1 <= activite.prix < utilisateur.budget * 1.25:
-            print("l'activite", activite, " a été multipliée par 1.25")
+        if utilisateur.budget*1.1 <= activite.prix < utilisateur.budget * 1.25:
+            print("l'activite", activite, " a été multipliée par 1.30")
             activite.score *= 1.3
             
-        elif utilisateur.budget *1.25 <= activite.prix < utilisateur.budget * 1.5:
-            print("l'activite", activite, " a été multipliée par 1.25")
+        if utilisateur.budget *1.25 <= activite.prix < utilisateur.budget * 1.5:
+            print("l'activite", activite, " a été multipliée par 1.10")
             activite.score *= 1.1
-        
-        
+            
         else : 
             print("le score reste inchangé")
-        
-    
+
     # ÉTAPE 3 -> les catégories pref
+    '''
+    
+        for categorie in utilisateur.categoriePref :
+            if activite.categorie == categorie :
+                activite.score *= 1.5
+                print("le score de l'activité a été multiplié par 1.5 ( étape 3)")
+'''
     
     
 '''
