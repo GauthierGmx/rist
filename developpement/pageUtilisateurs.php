@@ -1,4 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
 <?php
+#INCLUDE DES CLASSES
+include 'classUtilisateur.php';
+include 'classActivite.php';
 
 #CONNEXION A LA BASE DE DONNEES
     $bdd= "gvernis_cms"; // Base de données 
@@ -146,28 +158,12 @@ $utilisateurs[] = 'PatPat';
 $utilisateurs[] = 'Laulau64100';
 $utilisateurs[] = 'Sparky';
 
-class Utilisateur {
-    // Attributs
-    public $pseudonyme; // String
-    public $nbActivite; // Int
-    public $coordGPS;   // Array : [0] X ; [1] Y
-    public $budget;     // Int arrondi à 2 chiffres après la virgule
-    public $categories; // Array : [0] catégorie 1 ; [1] catégorie 2 ; [2] catégorie 3
-
-    // Constructeur
-    public function __construct($pseudonyme,$nbActivite,$coordGPS,$budget,$categories){
-        $this->pseudonyme = $pseudonyme;
-        $this->nbActivite = $nbActivite;
-        $this->coordGPS = $coordGPS;
-        $this->budget = $budget;
-        $this->categories = $categories;
-    }
-}
-
 #RECUPERATION DES DONNEES
     for ($i=0; $i < $NB_UTILISATEURS; $i++) {
         $pseudonyme  = $utilisateurs[$i];
         echo "<p>Utilisateur : $pseudonyme</p>";
+        ${"utilisateur" . $i} = new Utilisateur();
+        ${"utilisateur" . $i}->setPseudonyme($pseudonyme);
 
         $query = "SELECT COUNT(idActivite) as nbActivite
         FROM Rist_Participer
@@ -178,25 +174,26 @@ class Utilisateur {
         while ($donnees = mysqli_fetch_assoc($result)) {
             $nbActivite = $donnees["nbActivite"];
         }
-
+        ${"utilisateur" . $i}->SetNbActivite($nbActivite);
         if($nbActivite < 2){
-            printf("Nouvel utilisateur avec une participation à $nbActivite activité");
+            printf("Nouvel utilisateur");
             echo "<br>";
-            $coordGPS = recupererCoordGPS($link,$pseudonyme);
-            $budget = recupererBudgetSaisi($link,$pseudonyme);
-            $categories = recupererCategoriesPref($link,$pseudonyme);
+            ${"utilisateur" . $i}->setCoordGPS(recupererCoordGPS($link,$pseudonyme));
+            ${"utilisateur" . $i}->setbudget(recupererBudgetSaisi($link,$pseudonyme));
+            ${"utilisateur" . $i}->setCategories(recupererCategoriesPref($link,$pseudonyme));
         }
         else{
-            printf("Utilisateur habitué avec une participation à $nbActivite activités");
+            printf("Utilisateur habitué");
             echo "<br>";
-            $coordGPS = recupererCoordGPS($link,$pseudonyme);
-            $budget = recupererBudgetMoyen($link,$pseudonyme);
-            $categories = recupererCategoriesHist($link,$pseudonyme);
+            ${"utilisateur" . $i}->setCoordGPS(recupererCoordGPS($link,$pseudonyme));
+            ${"utilisateur" . $i}->setBudget(recupererBudgetMoyen($link,$pseudonyme));
+            ${"utilisateur" . $i}->setCategories(recupererCategoriesHist($link,$pseudonyme));
         }
-        ${"utilisateur" . $i} = new Utilisateur($pseudonyme, $nbActivite, $coordGPS, $budget, $categories);
         $serializedUser = urlencode(serialize(${"utilisateur" . $i}));
         echo "<a href='recommandations.php?utilisateur=$serializedUser'>Voir sa page de recommandation</a>";
         echo "<br>";
         echo "------------------------------------------------";
     }
 ?>
+</body>
+</html>
