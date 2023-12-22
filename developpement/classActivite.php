@@ -11,9 +11,10 @@
     private $coordGPS; // Array : [0] X ; [1] Y
     private $organisateur; // String du pseudonyme de l'organisateur
     private $categories; // Array : [0] catégorie 1 ; [1] catégorie 2 ; [2] catégorie 3 ; ...
+    private $score; // Int 
 
     // Constructeur
-    public function __construct($id,$titre,$description,$prix,$nbPersonneMaxi,$dateLimiteInscription,$dateRdv,$adresse,$coordGPS,$organisateur,$categories){
+    public function __construct($id=0,$titre="",$description="",$prix=0,$nbPersonneMaxi=0,$dateLimiteInscription="2000-01-01",$dateRdv="2000-01-01",$adresse="",$coordGPS="0,0",$organisateur="",$categories=array(),$score=0){
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
@@ -25,6 +26,7 @@
         $this->coordGPS = $coordGPS;
         $this->organisateur = $organisateur;
         $this->categories = $categories;
+        $this->score = $score;
     }
 
     // Get & Set
@@ -72,6 +74,10 @@
     {
         return $this->categories;
     }
+    public function getScore()
+    {
+        return $this->score;
+    }
 
     public function setId($id)
     {
@@ -116,6 +122,10 @@
     public function setCategories($categories)
     {
         $this->categories = $categories;
+    }
+    public function setScore($score)
+    {
+        $this->score = $score;
     }
 }
 ?>

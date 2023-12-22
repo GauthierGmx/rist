@@ -10,7 +10,6 @@
         .info-icon {
             position: relative;
             display: inline-block;
-            margin-left: 5px;
         }
 
         .info-icon:hover .info-text {
@@ -30,6 +29,22 @@
             z-index: 1;
         }
     </style>
+    <script>
+        function verifierTotal() {
+            var prctGeographie = parseInt(document.getElementsByName('prctGeographie')[0].value) || 0;
+            var prctPrix = parseInt(document.getElementsByName('prctPrix')[0].value) || 0;
+            var prctCategories = parseInt(document.getElementsByName('prctCategories')[0].value) || 0;
+
+            var total = prctGeographie + prctPrix + prctCategories;
+
+            if (total !== 100) {
+                alert("La somme des pourcentages doit être égale à 100. Actuellement, c'est " + total + "\nVeuillez corriger, merci.");
+                return false; // Empêche l'envoi du formulaire
+            }
+
+            return true; // Permet l'envoi du formulaire
+        }
+    </script>
 </head>
 <body>
 <?php
@@ -61,12 +76,16 @@ echo "</ul>";
 
 ?>
 </body>
+
 <h3>Veuillez distribuez la priorité sur les différentes critères pour un total de 100%
+
 <span class='info-icon'>
 <img src='info-icon.png' alt='Info' width='20' height='20'>
 <span class='info-text'>Plus la priorité est grande pour un critère, plus il sera pris en compte dans le calcul de votre liste de recommandation</span>
 </span>
 </h3>
+
+<form method="post" action="recupDonnees.php" onsubmit="return verifierTotal()";>
 <label>Zone géographique :
 <span class='info-icon'>
 <img src='info-icon.png' alt='Info' width='20' height='20'>
@@ -88,6 +107,9 @@ echo "</ul>";
 </span>
 </label>
 <input type='number' name='prctCategories' placeholder='20' min="0" max="100" required>
+<input type="submit" value="Rafraîchir">
+</form>
+
 <h3>Vos recommandations :</h3>
 
 <a href="pageUtilisateurs.php">&lsaquo; Retourner aux utilisateurs</a>
