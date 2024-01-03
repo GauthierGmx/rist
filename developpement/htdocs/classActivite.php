@@ -127,5 +127,24 @@
     {
         $this->score = $score;
     }
+
+
+    public funtion toString()
+    {
+        print_r($this->getTitre);
+        print_r($this->getDescription);
+        print_r($this->getPrix);
+        print_r($this->getNbPersonneMaxi);
+        print_r($this->getDateLimiteInscription);
+        print_r($this->getDateRdv);
+        print_r($this->getAdresse);
+        print_r($this->getCoordGPS);
+        print_r($this->getOrganisateur);
+        print_r($this->getCategories);
+        print_r($this->getScore);
+
+    }
+
+
 }
 ?>

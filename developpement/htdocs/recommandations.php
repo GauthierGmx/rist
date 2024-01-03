@@ -6,7 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les recommandations</title>
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
+        body {
+            background-color: #eaf7ff;
+            color: #333;
+            padding-top: 50px;
+        }
+
+        .container {
+            margin-bottom: 50px;
+        }
+
+        h3 {
+            color: #3498db;
+        }
+
+        label {
+            color: #f39c12;
+        }
+
+        input[type="number"] {
+            background-color: #ffff99;
+            border: 1px solid #cccc00;
+        }
+
+        input[type="submit"] {
+            background-color: #33cc33;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
         .info-icon {
             position: relative;
             display: inline-block;
@@ -17,7 +60,7 @@
         }
 
         .info-text {
-            font-size:15px;
+            font-size: 15px;
             display: none;
             position: absolute;
             top: 20px;
@@ -28,7 +71,27 @@
             border-radius: 5px;
             z-index: 1;
         }
+
+        .user-info {
+            border: 1px solid #3498db;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+
+        .user-info a {
+            color: #f39c12;
+            text-decoration: none;
+            font-weight: bold;
+        }
     </style>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="chemin/vers/popper.min.js"></script>
+    <script src="chemin/vers/bootstrap.min.js"></script>
+
+
     <script>
         function verifierTotal() {
             var prctGeographie = parseInt(document.getElementsByName('prctGeographie')[0].value) || 0;
@@ -97,38 +160,16 @@ function recupererInfosPrincipalesActivite($link){
     while ($donnees = mysqli_fetch_assoc($result)) {
         ${"activite" . $i} = new Activite();
         ${"activite" . $i} -> setId($donnees["idActivite"]);
-        echo "<h4>Activité ";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo ${'activite' . $i} -> getId();                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "</h4>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
         ${"activite" . $i} -> setTitre($donnees["titre"]);
-        echo ${'activite' . $i} -> getTitre();                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "<br>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
         ${"activite" . $i} -> setDescription($donnees["description"]);
-        echo ${'activite' . $i} -> getDescription();                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "<br>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
         ${"activite" . $i} -> setPrix($donnees["prix"]/$donnees["nbPersonneMaxi"]);
-        echo ${'activite' . $i} -> getPrix() . " €/personne";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "<br>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        ${"activite" . $i} -> setNbPersonneMaxi($donnees["nbPersonneMaxi"]);
-        echo ${'activite' . $i} -> getNbPersonneMaxi() . " personnes maximum";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "<br>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
+        ${"activite" . $i} -> setNbPersonneMaxi($donnees["nbPersonneMaxi"]);                                  //C'est juste pour l'affichage de toutes les activités donc à supprimer
         ${"activite" . $i} -> setDateLimiteInscription($donnees["dateLimiteInscription"]);
-        echo "Date de limite d'inscription : " . ${'activite' . $i} -> getDateLimiteInscription();                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "<br>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
         ${"activite" . $i} -> setDateRdv($donnees["dateRdv"]);
-        echo "Date de rendez-vous : " . ${'activite' . $i} -> getDateRdv();                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "<br>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
         ${"activite" . $i} -> setAdresse($donnees["adresse"]);
-        echo ${'activite' . $i} -> getAdresse();                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "<br>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
         ${"activite" . $i} -> setCoordGPS($donnees["coordGPS"]);
-        echo ${'activite' . $i} -> getCoordGPS();                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "<br>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
         ${"activite" . $i} -> setOrganisateur($donnees["pseudonyme"]);
-        echo "Organisateur : " . ${'activite' . $i} -> getOrganisateur();                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        echo "<br>";                                   //C'est juste pour l'affichage de toutes les activités donc à supprimer
         ${"activite" . $i} -> setCategories(recupererCategories($link,$i,${"activite" . $i}->getId()));
-        var_dump(${'activite' . $i} -> getCategories());                                    //C'est juste pour l'affichage de toutes les activités donc à supprimer 
         $i+=1;
     }
 }
@@ -156,7 +197,6 @@ foreach ($utilisateur->getGPSHistorique() as $GPS) {
 echo "</ul>";
 
 ?>
-</body>
 
 <h3>Veuillez distribuez la priorité sur les différentes critères pour un total de 100%
 
@@ -166,39 +206,43 @@ echo "</ul>";
 </span>
 </h3>
 
-<form method="post" action="recommandations.php" onsubmit="return verifierTotal()";>
-<label>Zone géographique :
-<span class='info-icon'>
-<img src='info-icon.png' alt='Info' width='20' height='20'>
-<span class='info-text'>Détermine si la distance entre vous et les activités recommandées est importante</span>
-</span>
-</label>
-<input type='number' name='prctGeographie' placeholder='50' min="0" max="100" required>
-<label>Prix :
-<span class='info-icon'>
-<img src='info-icon.png' alt='Info' width='20' height='20'>
-<span class='info-text'>Détermine si le prix des activités recommandées est important par rapport à votre budget</span>
-</span>
-</label>
-<input type='number' name='prctPrix' placeholder='30' min="0" max="100" required>
-<label>Intérêts :
-<span class='info-icon'>
-<img src='info-icon.png' alt='Info' width='20' height='20'>
-<span class='info-text'>Détermine si vos intérêts sont importants par rapport aux catégories des activités recommandées</span>
-</span>
-</label>
-<input type='number' name='prctCategories' placeholder='20' min="0" max="100" required>
-<input type="submit" value="Rafraîchir">
+<form method="post" action="recommandations.php" onsubmit="return verifierTotal();">
+    <label>Zone géographique :
+    <span class='info-icon'>
+    <img src='info-icon.png' alt='Info' width='20' height='20'>
+    <span class='info-text'>Détermine si la distance entre vous et les activités recommandées est importante</span>
+    </span>
+    </label>
+    <input type='number' name='prctGeographie' placeholder='50' min="0" max="100" required>
+    <label>Prix :
+    <span class='info-icon'>
+    <img src='info-icon.png' alt='Info' width='20' height='20'>
+    <span class='info-text'>Détermine si le prix des activités recommandées est important par rapport à votre budget</span>
+    </span>
+    </label>
+    <input type='number' name='prctPrix' placeholder='30' min="0" max="100" required>
+    <label>Intérêts :
+    <span class='info-icon'>
+    <img src='info-icon.png' alt='Info' width='20' height='20'>
+    <span class='info-text'>Détermine si vos intérêts sont importants par rapport aux catégories des activités recommandées</span>
+    </span>
+    </label>
+    <input type='number' name='prctCategories' placeholder='20' min="0" max="100" required>
+    <input type="submit" value="Rafraîchir">
 </form>
 
 <h3>Vos recommandations :</h3>
 
 <?php
-recupererInfosPrincipalesActivite($link);
 #appels des fonctions de calcul de score
 #affichage des 3 activités recommandées
+recupererInfosPrincipalesActivite($link);
 ?>
 
 <br>
 <a href="index.php">&lsaquo; Retourner aux utilisateurs</a>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

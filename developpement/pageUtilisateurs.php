@@ -14,7 +14,7 @@ include 'classActivite.php';
 
 #CONNEXION A LA BASE DE DONNEES
     $bdd= "gvernis_cms"; // Base de données 
-    $host= "lakartxela.iutbayonne.univ-pau.fr";
+    $host= "localhost";
     $user= "gvernis_cms"; // Utilisateur 
     $pass= "gvernis_cms"; // mp
 
