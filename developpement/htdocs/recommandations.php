@@ -151,27 +151,57 @@ function recupererCategories($link,$i,$id){
 function recupererInfosPrincipalesActivite($link){
     $query = "SELECT A.*
     FROM Rist_Activite A
-    WHERE A.dateLimiteInscription <= '2024-12-10'                   # Date à changer plus tard
-      AND (SELECT COUNT(*) FROM Rist_Participer P WHERE P.idActivite = A.idActivite) <= A.nbPersonneMaxi;"; 
+    WHERE A.dateLimiteInscription <= '2024-12-10'
+      AND (SELECT COUNT(*) FROM Rist_Participer P WHERE P.idActivite = A.idActivite) <= A.nbPersonneMaxi;";
     $result= mysqli_query($link,$query);
     
+    $activites = array(); // Tableau pour stocker les instances d'Activite
+
     // Boucle à travers les résultats
     $i=0;
     while ($donnees = mysqli_fetch_assoc($result)) {
-        ${"activite" . $i} = new Activite();
-        ${"activite" . $i} -> setId($donnees["idActivite"]);
-        ${"activite" . $i} -> setTitre($donnees["titre"]);
-        ${"activite" . $i} -> setDescription($donnees["description"]);
-        ${"activite" . $i} -> setPrix($donnees["prix"]/$donnees["nbPersonneMaxi"]);
-        ${"activite" . $i} -> setNbPersonneMaxi($donnees["nbPersonneMaxi"]);                                  //C'est juste pour l'affichage de toutes les activités donc à supprimer
-        ${"activite" . $i} -> setDateLimiteInscription($donnees["dateLimiteInscription"]);
-        ${"activite" . $i} -> setDateRdv($donnees["dateRdv"]);
-        ${"activite" . $i} -> setAdresse($donnees["adresse"]);
-        ${"activite" . $i} -> setCoordGPS($donnees["coordGPS"]);
-        ${"activite" . $i} -> setOrganisateur($donnees["pseudonyme"]);
-        ${"activite" . $i} -> setCategories(recupererCategories($link,$i,${"activite" . $i}->getId()));
+        $activite = new Activite();
+        $activite->setId($donnees["idActivite"]);
+        $activite->setTitre($donnees["titre"]);
+        $activite->setDescription($donnees["description"]);
+        $activite->setPrix($donnees["prix"]/$donnees["nbPersonneMaxi"]);
+        $activite->setNbPersonneMaxi($donnees["nbPersonneMaxi"]);
+        $activite->setDateLimiteInscription($donnees["dateLimiteInscription"]);
+        $activite->setDateRdv($donnees["dateRdv"]);
+        $activite->setAdresse($donnees["adresse"]);
+        $activite->setCoordGPS($donnees["coordGPS"]);
+        $activite->setOrganisateur($donnees["pseudonyme"]);
+        $activite->setCategories(recupererCategories($link,$i,$activite->getId()));
+
+        $activites[$i] = $activite; // Ajouter l'activité au tableau avec l'index $i
         $i+=1;
     }
+
+    return $activites;
+}
+
+function haversineDistance($lat1, $lon1, $lat2, $lon2) {
+    // Rayon moyen de la Terre en kilomètres
+    $earthRadius = 6371;
+
+    // Conversion des degrés en radians
+    $lat1 = deg2rad($lat1);
+    $lon1 = deg2rad($lon1);
+    $lat2 = deg2rad($lat2);
+    $lon2 = deg2rad($lon2);
+
+    // Calcul des variations de latitude et de longitude
+    $latDelta = $lat2 - $lat1;
+    $lonDelta = $lon2 - $lon1;
+
+    // Formule de la distance haversine
+    $a = sin($latDelta / 2) * sin($latDelta / 2) + cos($lat1) * cos($lat2) * sin($lonDelta / 2) * sin($lonDelta / 2);
+    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+    // Distance en kilomètres
+    $distance = $earthRadius * $c;
+
+    return $distance;
 }
 
 #AFFICHAGE DES INFORMATIONS
@@ -236,7 +266,27 @@ echo "</ul>";
 <?php
 #appels des fonctions de calcul de score
 #affichage des 3 activités recommandées
-recupererInfosPrincipalesActivite($link);
+$activites = recupererInfosPrincipalesActivite($link);
+
+echo "<h3>Vos recommandations :</h3>";
+echo "<ul>";
+foreach ($activites as $index => $activite) {   //parcours de toutes les activites
+
+    //Calcul de la distance entre l'activité et l'utilisateur 
+
+
+
+
+
+    $distanceUtilisateurActivite = haversineDistance($utilisateur->getCoordGPS()[0], $utilisateur->getCoordGPS()[1], $activite->getCoordGPS()[0], $activite->getCoordGPS()[1]);
+    echo $distanceUtilisateurActivite;
+    echo "</br>";
+    
+
+
+}
+echo "</ul>";
+
 ?>
 
 <br>

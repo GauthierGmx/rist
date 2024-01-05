@@ -111,9 +111,10 @@
     {
         $this->adresse = $adresse;
     }
-    public function setCoordGPS($coordGPS)
+    public function setCoordGPS($chaineCoord)
     {
-        $this->coordGPS = $coordGPS;
+        $coordGPSParts = explode(', ', $chaineCoord);
+        $this->coordGPS = [$coordGPSParts[0], $coordGPSParts[1]];
     }
     public function setOrganisateur($organisateur)
     {
@@ -129,20 +130,19 @@
     }
 
 
-    public funtion toString()
+    public function toString()
     {
-        print_r($this->getTitre);
-        print_r($this->getDescription);
-        print_r($this->getPrix);
-        print_r($this->getNbPersonneMaxi);
-        print_r($this->getDateLimiteInscription);
-        print_r($this->getDateRdv);
-        print_r($this->getAdresse);
-        print_r($this->getCoordGPS);
-        print_r($this->getOrganisateur);
-        print_r($this->getCategories);
-        print_r($this->getScore);
-
+        echo "Titre: " . $this->getTitre() . "<br>";
+        echo "Description: " . $this->getDescription() . "<br>";
+        echo "Prix: " . $this->getPrix() . "<br>";
+        echo "Nombre de personnes maximum: " . $this->getNbPersonneMaxi() . "<br>";
+        echo "Date limite d'inscription: " . $this->getDateLimiteInscription() . "<br>";
+        echo "Date de rendez-vous: " . $this->getDateRdv() . "<br>";
+        echo "Adresse: " . $this->getAdresse() . "<br>";
+        echo "Coordonnées GPS: " . $this->getCoordGPS() . "<br>";
+        echo "Organisateur: " . $this->getOrganisateur() . "<br>";
+        echo "Catégories: " . implode(", ", $this->getCategories()) . "<br>";
+        echo "Score: " . $this->getScore() . "<br>";
     }
 
 
