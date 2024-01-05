@@ -275,10 +275,14 @@ foreach ($activites as $index => $activite) {   //parcours de toutes les activit
     //Calcul de la distance entre l'activité et l'utilisateur 
 
 
-
-
-
     $distanceUtilisateurActivite = haversineDistance($utilisateur->getCoordGPS()[0], $utilisateur->getCoordGPS()[1], $activite->getCoordGPS()[0], $activite->getCoordGPS()[1]);
+    $listeDistanceHistorique
+
+    $moyenneDistance = 
+
+    
+
+    scoreDistance = distMoyenne/(distanceUtilisateurActivite * (1-poids))
     echo $distanceUtilisateurActivite;
     echo "</br>";
     
