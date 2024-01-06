@@ -108,6 +108,8 @@
             return true; // Permet l'envoi du formulaire
         }
     </script>
+
+    
 </head>
 <body>
 <?php
@@ -204,6 +206,29 @@ function haversineDistance($lat1, $lon1, $lat2, $lon2) {
     return $distance;
 }
 
+//calcul du score de distance via la formule :
+//scoreDistance = distMoyenne/(distanceUtilisateurActivite * (1-poids))
+function calculScoreDistance($distanceUtilisateurActivite, $moyenne,$prctGeo) {
+
+    // Calculer le score de distance
+    $scoreDistance = $moyenne / ($distanceUtilisateurActivite * (1 - $prctGeo / 100));
+
+    return $scoreDistance ;
+}
+
+function calculScorePrix($prix, $budget, $prctPrix) {
+    // Vérifie si le prix est différent de zéro pour éviter la division par zéro
+    if ($prix != 0) {
+        // Calculer le score de prix
+        $scorePrix = $budget / ($prix * (1 - $prctPrix / 100));
+        return $scorePrix;
+    } else {
+        // Retourner un score par défaut (ou gérer le cas de prix égal à zéro selon vos besoins)
+        return 0;
+    }
+}
+
+
 #AFFICHAGE DES INFORMATIONS
 echo "<h3>Informations de l'utilisateur</h3>";
 echo "<p>Pseudonyme : " . $utilisateur->getPseudonyme() . "</p>";
@@ -261,32 +286,70 @@ echo "</ul>";
     <input type="submit" value="Rafraîchir">
 </form>
 
-<h3>Vos recommandations :</h3>
 
 <?php
 #appels des fonctions de calcul de score
 #affichage des 3 activités recommandées
 $activites = recupererInfosPrincipalesActivite($link);
 
+$prctGeographie = isset($_POST['prctGeographie']) ? intval($_POST['prctGeographie']) : 0;
+$prctPrix = isset($_POST['prctPrix']) ? intval($_POST['prctPrix']) : 0;
+$prctCategories = isset($_POST['prctCategories']) ? intval($_POST['prctCategories']) : 0;
+
 echo "<h3>Vos recommandations :</h3>";
 echo "<ul>";
+
+//Calcul de la distance moyenne entre l'utilisateur et les activiés de son historique 
+//création d'une liste pour contenir les résultats 
+$listeDist = array();
+
+//calcul de la distance de toutes les activites de son historique 
+foreach ($utilisateur->getGPSHistorique() as $GPS) {
+    $result = haversineDistance($utilisateur->getCoordGPS()[0], $utilisateur->getCoordGPS()[1],$GPS[0],$GPS[1]);
+    $listeDist[] = $result;
+
+}
+
+// Calculer la somme des valeurs
+$somme = array_sum($listeDist);
+
+// Calculer le nombre d'éléments dans le tableau
+$nombreElements = count($listeDist);
+
+// Calculer la moyenne
+if ($nombreElements > 0) {
+    $moyenne = $somme / $nombreElements;
+} 
+else {
+    echo "Le tableau est vide, impossible de calculer la moyenne.";
+}
+
+
+
+
+
+
 foreach ($activites as $index => $activite) {   //parcours de toutes les activites
 
-    //Calcul de la distance entre l'activité et l'utilisateur 
-
-
+    //calcul du score de distance
     $distanceUtilisateurActivite = haversineDistance($utilisateur->getCoordGPS()[0], $utilisateur->getCoordGPS()[1], $activite->getCoordGPS()[0], $activite->getCoordGPS()[1]);
-    $listeDistanceHistorique
+    $scoreDistance = calculScoreDistance($distanceUtilisateurActivite,$moyenne,$prctGeographie);
+    $nouveauScore = $activite->getScore() + $scoreDistance;
+    $activite->setScore($nouveauScore);
 
-    $moyenneDistance = 
+    //calcul du score de prix
+    $scorePrix = calculScorePrix($activite->getPrix(), $utilisateur->getBudget(), $prctPrix);
 
-    
+    $nouveauScore = $activite->getScore() + $scorePrix;
+    $activite->setScore($nouveauScore);
 
-    scoreDistance = distMoyenne/(distanceUtilisateurActivite * (1-poids))
-    echo $distanceUtilisateurActivite;
-    echo "</br>";
-    
 
+
+
+
+
+    print_r($activite->getScore());
+    echo"</br>";
 
 }
 echo "</ul>";
