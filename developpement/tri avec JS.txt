@@ -24,3 +24,4 @@ function tri() {
     }
     liste.replaceWith(nouvelleListe);
 }
+// Le fichier tri.php c'est recommendation.php avec la fonction
