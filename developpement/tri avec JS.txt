@@ -1,0 +1,26 @@
+function tri() {
+    let nouvelleListe = document.createElement("ul");
+    let activite;
+    let liste = document.getElementsByClassName("liste")[0];
+    let nbActivite = liste.childElementCount;
+
+    for (let index = 0; index < nbActivite; index++) {
+        activite = liste.firstElementChild; 
+        if (nouvelleListe.childElementCount === 0) {
+            nouvelleListe.appendChild(activite);
+        } else {
+            let ajouté = false;
+            for (let index2 = 0; index2 < nouvelleListe.childElementCount; index2++) {
+                if (parseInt(nouvelleListe.children[index2].id) < parseInt(activite.id)) {
+                    nouvelleListe.insertBefore(activite, nouvelleListe.children[index2]);
+                    ajouté = true;
+                    break;
+                }
+            }
+            if (!ajouté) {
+                nouvelleListe.appendChild(activite);
+            }
+        }
+    }
+    liste.replaceWith(nouvelleListe);
+}
