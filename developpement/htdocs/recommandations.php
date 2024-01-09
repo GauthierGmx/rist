@@ -126,17 +126,17 @@ $utilisateur = unserialize($serializedUtilisateur);
 
 #CONNEXION A LA BASE DE DONNEES
 $bdd= "gvernis_cms"; // Base de données 
-$host= "localhost";
+$host= "lakartxela.iutbayonne.univ-pau.fr";
 $user= "gvernis_cms"; // Utilisateur 
 $pass= "gvernis_cms"; // mp
 
 $link=mysqli_connect($host,$user,$pass,$bdd) or die( "Impossible de se connecter à la base de données");
 
 #FONCTIONS DE RECUPERATION DES DONNEES
-function recupererCategories($link,$i,$id){
+function recupererCategories($link,$id){
     $query = "SELECT C.nomCategorie
-    FROM rist_activite A
-    JOIN rist_correspondre C ON A.idActivite = C.idActivite
+    FROM Rist_Activite A
+    JOIN Rist_Correspondre C ON A.idActivite = C.idActivite
     WHERE A.idActivite = $id;";
     $result= mysqli_query($link,$query);
     
@@ -173,7 +173,7 @@ function recupererInfosPrincipalesActivite($link){
         $activite->setAdresse($donnees["adresse"]);
         $activite->setCoordGPS($donnees["coordGPS"]);
         $activite->setOrganisateur($donnees["pseudonyme"]);
-        $activite->setCategories(recupererCategories($link,$i,$activite->getId()));
+        $activite->setCategories(recupererCategories($link,$activite->getId()));
 
         $activites[$i] = $activite; // Ajouter l'activité au tableau avec l'index $i
         $i+=1;

@@ -1,7 +1,12 @@
 <?php
 
-$monUtilisateur = array(43.5214, -1.4819);
-$monActivite = array(43.48012, -1.5113);
+include 'classActivite.php';
+include 'classUtilisateur.php';
+
+
+
+
+
 
 
 function Haversine( $uneActivite, $unUtilisateur){
@@ -32,6 +37,7 @@ function Haversine( $uneActivite, $unUtilisateur){
     return $DistanceFinal;
 }
 
-$result = Haversine($monActivite,$monUtilisateur);
+
+
 
 echo "La distance entre l'activité et l'utilisateur est : " . $result . "km";

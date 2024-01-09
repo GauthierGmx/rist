@@ -43,7 +43,7 @@
 
         #CONNEXION A LA BASE DE DONNEES
         $bdd = "gvernis_cms"; // Base de données 
-        $host = "localhost";
+        $host = "lakartxela.iutbayonne.univ-pau.fr";
         $user = "gvernis_cms"; // Utilisateur 
         $pass = "gvernis_cms"; // mp
 
@@ -183,8 +183,8 @@
         
             $query = "SELECT A.coordGPS
             FROM Rist_Activite A
-            JOIN rist_participer P ON A.idActivite = P.idActivite
-            WHERE P.pseudonyme = 'Sparky' AND A.dateRdv>DATE('2023-12-22')      # Date à changer plus tard
+            JOIN Rist_Participer P ON A.idActivite = P.idActivite
+            WHERE P.pseudonyme = '$pseudonyme' AND A.dateRdv>DATE('2023-12-22')      # Date à changer plus tard
             ORDER BY DATE(A.dateRdv) DESC, A.idActivite ASC 
             LIMIT 10;";
             
