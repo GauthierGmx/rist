@@ -107,6 +107,39 @@
 
             return true; // Permet l'envoi du formulaire
         }
+
+        function tri(){
+            let nouvelleListe = document.createElement("ul");
+            let activite;
+            let liste = document.getElementsByClassName("liste")[0];
+            let nbActivite = liste.childElementCount;
+            console.log("toutes les variables sont déclarées");
+            for (let index = 0; index < nbActivite; index++) {
+                activite = liste.firstElementChild;
+                console.log(activite);
+                if (nouvelleListe.childElementCount == 0) {
+                    console.log("première insertion");
+                    nouvelleListe.appendChild(activite);
+                }
+                else{
+                    let ajouté = false
+                    
+                    console.log(nouvelleListe.childElementCount);
+
+                    for (let index2 = 0; index2 < nouvelleListe.childElementCount; index2++) {
+                        if (nouvelleListe.children[index2].id > activite.id) {
+                            nouvelleListe.insertBefore(activite,nouvelleListe[index2])
+                            ajouté = true
+                        }
+                    }
+                    if (!ajouté) {
+                        nouvelleListe.append(activite);
+                    }
+                }
+            }
+            liste.replaceWith(nouvelleListe);
+            nouvelleListe.className = "liste";
+        }
     </script>
 
     
@@ -126,17 +159,17 @@ $utilisateur = unserialize($serializedUtilisateur);
 
 #CONNEXION A LA BASE DE DONNEES
 $bdd= "gvernis_cms"; // Base de données 
-$host= "localhost";
+$host= "lakartxela.iutbayonne.univ-pau.fr";
 $user= "gvernis_cms"; // Utilisateur 
 $pass= "gvernis_cms"; // mp
 
 $link=mysqli_connect($host,$user,$pass,$bdd) or die( "Impossible de se connecter à la base de données");
 
 #FONCTIONS DE RECUPERATION DES DONNEES
-function recupererCategories($link,$i,$id){
+function recupererCategories($link,$id){
     $query = "SELECT C.nomCategorie
-    FROM rist_activite A
-    JOIN rist_correspondre C ON A.idActivite = C.idActivite
+    FROM Rist_Activite A
+    JOIN Rist_Correspondre C ON A.idActivite = C.idActivite
     WHERE A.idActivite = $id;";
     $result= mysqli_query($link,$query);
     
@@ -173,7 +206,7 @@ function recupererInfosPrincipalesActivite($link){
         $activite->setAdresse($donnees["adresse"]);
         $activite->setCoordGPS($donnees["coordGPS"]);
         $activite->setOrganisateur($donnees["pseudonyme"]);
-        $activite->setCategories(recupererCategories($link,$i,$activite->getId()));
+        $activite->setCategories(recupererCategories($link,$activite->getId()));
 
         $activites[$i] = $activite; // Ajouter l'activité au tableau avec l'index $i
         $i+=1;
@@ -228,6 +261,68 @@ function calculScorePrix($prix, $budget, $prctPrix) {
     }
 }
 
+function categorieSimilaire($categorie1, $categorie2){
+    $bdd= "gvernis_cms"; // Base de données 
+    $host= "lakartxela.iutbayonne.univ-pau.fr";
+    $user= "gvernis_cms"; // Utilisateur 
+    $pass= "gvernis_cms"; // mp
+
+    $link=mysqli_connect($host,$user,$pass,$bdd) or die( "Impossible de se connecter à la base de données");
+    $query = "SELECT DISTINCT e1.nomEnsemble
+                FROM Rist_Ensemble e1
+                JOIN Rist_Ensemble e2 ON e1.nomEnsemble = e2.nomEnsemble
+                JOIN Rist_Appartenir a1 ON e1.nomEnsemble = a1.nomEnsemble
+                JOIN Rist_Appartenir a2 ON e2.nomEnsemble = a2.nomEnsemble
+                JOIN Rist_Categorie c1 ON a1.nomCategorie = c1.nomCategorie
+                JOIN Rist_Categorie c2 ON a2.nomCategorie = c2.nomCategorie
+                WHERE c1.nomCategorie = '".$categorie1."' AND c2.nomCategorie = '".$categorie2."';";
+    
+    $result= mysqli_query($link,$query);
+
+    // Vérification si la requête n'est pas vide
+    if ($result && $result->num_rows > 0) {
+        //La requête n'est pas vide, retourne true.
+        return true;
+    } else {
+        //La requête est vide, retourne false.
+        return false;
+    }
+}
+
+function calculScoreCategorie($listeCategorieActivite, $listeCategorieUtilisateur, $prctCategories){
+    $score = 0;
+    foreach($listeCategorieActivite as $categorieActivite){
+        foreach($listeCategorieUtilisateur as $categorieUtilisateur){
+            if ($categorieActivite == $categorieUtilisateur) {
+                $score++;
+            }
+            else {
+                if (categorieSimilaire($categorieActivite, $categorieUtilisateur)) {
+                    $score = $score + 0.5;
+                }
+            }
+        }
+    }
+    
+    
+    return $score * ($prctCategories/100);
+}
+
+function tri(&$arr) {
+    $n = count($arr);
+
+    for ($i = 0; $i < $n - 1; $i++) {
+        for ($j = 0; $j < $n - $i - 1; $j++) {
+            // Utilisez la méthode getScore() pour comparer les objets
+            if ($arr[$j]->getScore() < $arr[$j + 1]->getScore()) {
+                // Échangez les éléments s'ils sont dans le mauvais ordre
+                $temp = $arr[$j];
+                $arr[$j] = $arr[$j + 1];
+                $arr[$j + 1] = $temp;
+            }
+        }
+    }
+}
 
 #AFFICHAGE DES INFORMATIONS
 echo "<h3>Informations de l'utilisateur</h3>";
@@ -261,8 +356,10 @@ echo "</ul>";
 </span>
 </h3>
 
-<form method="post" action="recommandations.php" onsubmit="return verifierTotal();">
-    <label>Zone géographique :
+<?php
+echo '<form method="post" action="recommandations.php?utilisateur='.urlencode($serializedUtilisateur).'" onsubmit="return verifierTotal();">';
+?>
+<label>Zone géographique :
     <span class='info-icon'>
     <img src='info-icon.png' alt='Info' width='20' height='20'>
     <span class='info-text'>Détermine si la distance entre vous et les activités recommandées est importante</span>
@@ -286,18 +383,18 @@ echo "</ul>";
     <input type="submit" value="Rafraîchir">
 </form>
 
-
+<h3>Vos recommandations :</h3>
+<ul class="liste">
 <?php
 #appels des fonctions de calcul de score
 #affichage des 3 activités recommandées
 $activites = recupererInfosPrincipalesActivite($link);
 
-$prctGeographie = isset($_POST['prctGeographie']) ? intval($_POST['prctGeographie']) : 0;
-$prctPrix = isset($_POST['prctPrix']) ? intval($_POST['prctPrix']) : 0;
-$prctCategories = isset($_POST['prctCategories']) ? intval($_POST['prctCategories']) : 0;
+$prctGeographie = isset($_POST['prctGeographie']) ? intval($_POST['prctGeographie']) : 50;
+$prctPrix = isset($_POST['prctPrix']) ? intval($_POST['prctPrix']) : 30;
+$prctCategories = isset($_POST['prctCategories']) ? intval($_POST['prctCategories']) : 20;
 
-echo "<h3>Vos recommandations :</h3>";
-echo "<ul>";
+
 
 //Calcul de la distance moyenne entre l'utilisateur et les activiés de son historique 
 //création d'une liste pour contenir les résultats 
@@ -324,11 +421,6 @@ else {
     echo "Le tableau est vide, impossible de calculer la moyenne.";
 }
 
-
-
-
-
-
 foreach ($activites as $index => $activite) {   //parcours de toutes les activites
 
     //calcul du score de distance
@@ -339,27 +431,30 @@ foreach ($activites as $index => $activite) {   //parcours de toutes les activit
 
     //calcul du score de prix
     $scorePrix = calculScorePrix($activite->getPrix(), $utilisateur->getBudget(), $prctPrix);
-
     $nouveauScore = $activite->getScore() + $scorePrix;
     $activite->setScore($nouveauScore);
 
-
-
-
-
-
-    print_r($activite->getScore());
-    echo"</br>";
+    $scoreCategorie = calculScoreCategorie($activite->getCategories(),$utilisateur->getCategories(),$prctCategories);
+    $nouveauScore = $activite->getScore() + $scoreCategorie;
+    $activite->setScore($nouveauScore);
 
 }
-echo "</ul>";
 
+tri($activites);
+
+foreach($activites as $index => $activite){
+    echo "<p id='".$activite->getScore()."'>";
+    echo $activite->toString();
+    echo "</p>"; 
+}
 ?>
 
+</ul>
 <br>
 <a href="index.php">&lsaquo; Retourner aux utilisateurs</a>
 
 <!-- Bootstrap JS and Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
 </body>
 </html>
