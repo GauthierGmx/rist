@@ -107,44 +107,12 @@
 
             return true; // Permet l'envoi du formulaire
         }
-
-        function tri(){
-            let nouvelleListe = document.createElement("ul");
-            let activite;
-            let liste = document.getElementsByClassName("liste")[0];
-            let nbActivite = liste.childElementCount;
-            console.log("toutes les variables sont déclarées");
-            for (let index = 0; index < nbActivite; index++) {
-                activite = liste.firstElementChild;
-                console.log(activite);
-                if (nouvelleListe.childElementCount == 0) {
-                    console.log("première insertion");
-                    nouvelleListe.appendChild(activite);
-                }
-                else{
-                    let ajouté = false
-                    
-                    console.log(nouvelleListe.childElementCount);
-
-                    for (let index2 = 0; index2 < nouvelleListe.childElementCount; index2++) {
-                        if (nouvelleListe.children[index2].id > activite.id) {
-                            nouvelleListe.insertBefore(activite,nouvelleListe[index2])
-                            ajouté = true
-                        }
-                    }
-                    if (!ajouté) {
-                        nouvelleListe.append(activite);
-                    }
-                }
-            }
-            liste.replaceWith(nouvelleListe);
-            nouvelleListe.className = "liste";
-        }
     </script>
 
     
 </head>
 <body>
+
 <?php
 #INCLUDE DES CLASSES
 include 'classUtilisateur.php';
@@ -244,17 +212,17 @@ function haversineDistance($lat1, $lon1, $lat2, $lon2) {
 function calculScoreDistance($distanceUtilisateurActivite, $moyenne,$prctGeo) {
 
     // Calculer le score de distance
-    $scoreDistance = $moyenne / ($distanceUtilisateurActivite * (1 - $prctGeo / 100));
+    $scoreDistance = $moyenne / $distanceUtilisateurActivite;
 
-    return $scoreDistance ;
+    return $scoreDistance * ($prctGeo / 100);
 }
 
 function calculScorePrix($prix, $budget, $prctPrix) {
     // Vérifie si le prix est différent de zéro pour éviter la division par zéro
     if ($prix != 0) {
         // Calculer le score de prix
-        $scorePrix = $budget / ($prix * (1 - $prctPrix / 100));
-        return $scorePrix;
+        $scorePrix = $budget / $prix;
+        return $scorePrix * ($prctPrix / 100);
     } else {
         // Retourner un score par défaut (ou gérer le cas de prix égal à zéro selon vos besoins)
         return 0;
@@ -308,17 +276,17 @@ function calculScoreCategorie($listeCategorieActivite, $listeCategorieUtilisateu
     return $score * ($prctCategories/100);
 }
 
-function tri(&$arr) {
-    $n = count($arr);
+function tri(&$activites) {
+    $n = count($activites);
 
     for ($i = 0; $i < $n - 1; $i++) {
         for ($j = 0; $j < $n - $i - 1; $j++) {
             // Utilisez la méthode getScore() pour comparer les objets
-            if ($arr[$j]->getScore() < $arr[$j + 1]->getScore()) {
+            if ($activites[$j]->getScore() < $activites[$j + 1]->getScore()) {
                 // Échangez les éléments s'ils sont dans le mauvais ordre
-                $temp = $arr[$j];
-                $arr[$j] = $arr[$j + 1];
-                $arr[$j + 1] = $temp;
+                $temp = $activites[$j];
+                $activites[$j] = $activites[$j + 1];
+                $activites[$j + 1] = $temp;
             }
         }
     }
@@ -358,6 +326,9 @@ echo "</ul>";
 
 <?php
 echo '<form method="post" action="recommandations.php?utilisateur='.urlencode($serializedUtilisateur).'" onsubmit="return verifierTotal();">';
+$prctGeographie = isset($_POST['prctGeographie']) ? intval($_POST['prctGeographie']) : 50;
+$prctPrix = isset($_POST['prctPrix']) ? intval($_POST['prctPrix']) : 30;
+$prctCategories = isset($_POST['prctCategories']) ? intval($_POST['prctCategories']) : 20;
 ?>
 <label>Zone géographique :
     <span class='info-icon'>
@@ -365,21 +336,27 @@ echo '<form method="post" action="recommandations.php?utilisateur='.urlencode($s
     <span class='info-text'>Détermine si la distance entre vous et les activités recommandées est importante</span>
     </span>
     </label>
-    <input type='number' name='prctGeographie' placeholder='50' min="0" max="100" required>
+    <?php
+    echo "<input value=$prctGeographie type='number' name='prctGeographie' placeholder='50' min='0' max='100' required>";
+    ?>
     <label>Prix :
     <span class='info-icon'>
     <img src='info-icon.png' alt='Info' width='20' height='20'>
     <span class='info-text'>Détermine si le prix des activités recommandées est important par rapport à votre budget</span>
     </span>
     </label>
-    <input type='number' name='prctPrix' placeholder='30' min="0" max="100" required>
+    <?php
+    echo "<input value=$prctPrix type='number' name='prctPrix' placeholder='30' min='0' max='100' required>";
+    ?>
     <label>Intérêts :
     <span class='info-icon'>
     <img src='info-icon.png' alt='Info' width='20' height='20'>
     <span class='info-text'>Détermine si vos intérêts sont importants par rapport aux catégories des activités recommandées</span>
     </span>
     </label>
-    <input type='number' name='prctCategories' placeholder='20' min="0" max="100" required>
+    <?php
+    echo "<input value=$prctCategories type='number' name='prctCategories' placeholder='20' min='0' max='100' required>";
+    ?>
     <input type="submit" value="Rafraîchir">
 </form>
 
@@ -389,10 +366,6 @@ echo '<form method="post" action="recommandations.php?utilisateur='.urlencode($s
 #appels des fonctions de calcul de score
 #affichage des 3 activités recommandées
 $activites = recupererInfosPrincipalesActivite($link);
-
-$prctGeographie = isset($_POST['prctGeographie']) ? intval($_POST['prctGeographie']) : 50;
-$prctPrix = isset($_POST['prctPrix']) ? intval($_POST['prctPrix']) : 30;
-$prctCategories = isset($_POST['prctCategories']) ? intval($_POST['prctCategories']) : 20;
 
 
 
@@ -425,6 +398,9 @@ foreach ($activites as $index => $activite) {   //parcours de toutes les activit
 
     //calcul du score de distance
     $distanceUtilisateurActivite = haversineDistance($utilisateur->getCoordGPS()[0], $utilisateur->getCoordGPS()[1], $activite->getCoordGPS()[0], $activite->getCoordGPS()[1]);
+    $activite->setDistance($distanceUtilisateurActivite);
+
+
     $scoreDistance = calculScoreDistance($distanceUtilisateurActivite,$moyenne,$prctGeographie);
     $nouveauScore = $activite->getScore() + $scoreDistance;
     $activite->setScore($nouveauScore);

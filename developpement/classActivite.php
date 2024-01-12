@@ -14,7 +14,7 @@
     private $score; // Int 
 
     // Constructeur
-    public function __construct($id=0,$titre="",$description="",$prix=0,$nbPersonneMaxi=0,$dateLimiteInscription="2000-01-01",$dateRdv="2000-01-01",$adresse="",$coordGPS="0,0",$organisateur="",$categories=array(),$score=0){
+    public function __construct($id=0,$titre="",$description="",$prix=0,$nbPersonneMaxi=0,$dateLimiteInscription="2000-01-01",$dateRdv="2000-01-01",$adresse="",$coordGPS="0,0",$organisateur="",$categories=array(),$score=1){
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
@@ -27,6 +27,7 @@
         $this->organisateur = $organisateur;
         $this->categories = $categories;
         $this->score = $score;
+        $this->distance = 0;
     }
 
     // Get & Set
@@ -78,6 +79,10 @@
     {
         return $this->score;
     }
+    public function getDistance()
+    {
+        return $this->distance;
+    }
 
     public function setId($id)
     {
@@ -111,9 +116,10 @@
     {
         $this->adresse = $adresse;
     }
-    public function setCoordGPS($coordGPS)
+    public function setCoordGPS($chaineCoord)
     {
-        $this->coordGPS = $coordGPS;
+        $coordGPSParts = explode(', ', $chaineCoord);
+        $this->coordGPS = [$coordGPSParts[0], $coordGPSParts[1]];
     }
     public function setOrganisateur($organisateur)
     {
@@ -127,5 +133,29 @@
     {
         $this->score = $score;
     }
+    public function setDistance($distance)
+    {
+        $this->distance=$distance;
+    }
+
+
+    public function toString()
+    {
+        echo "Titre: " . $this->getTitre() . "<br>";
+        echo "Description: " . $this->getDescription() . "<br>";
+        echo "Prix: " . $this->getPrix() . "<br>";
+        echo "Nombre de personnes maximum: " . $this->getNbPersonneMaxi() . "<br>";
+        echo "Date limite d'inscription: " . $this->getDateLimiteInscription() . "<br>";
+        echo "Date de rendez-vous: " . $this->getDateRdv() . "<br>";
+        echo "Adresse: " . $this->getAdresse() . "<br>";
+        //echo "Coordonnées GPS: " . $this->getCoordGPS() . "<br>";
+        echo "Organisateur: " . $this->getOrganisateur() . "<br>";
+        echo "Score: " . $this->getScore() . "<br>";
+        echo "Distance: ". $this->getDistance() . "<br>";
+    }
+
+
+    
+
 }
 ?>
