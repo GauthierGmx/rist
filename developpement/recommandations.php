@@ -292,6 +292,31 @@ function tri(&$activites) {
     }
 }
 
+//Vérifier si on doit prendre en compte les catégories les plus récurrentes
+$chaud = false;
+
+$query = "SELECT Ca.nomCategorie, COUNT(Ca.nomCategorie) 
+FROM Rist_Categorie Ca
+JOIN Rist_Correspondre Co ON Ca.nomCategorie = Co.nomCategorie
+JOIN Rist_Activite A ON Co.idActivite = A.idActivite
+JOIN Rist_Participer P ON A.idActivite = P.idActivite
+WHERE P.pseudonyme = '".$utilisateur->getPseudonyme()."'
+AND A.dateRdv<DATE('2024-12-19')                            # Date à changer plus tard
+GROUP BY Ca.nomCategorie
+ORDER BY COUNT(Ca.nomCategorie) DESC, Ca.nomCategorie ASC
+LIMIT 3";
+
+$result= mysqli_query($link,$query);
+if(mysqli_num_rows($result) > 2){
+    $chaud = true;
+
+    $categoriesRecurrentes = array();
+    while ($donnees = mysqli_fetch_assoc($result)){
+        array_push($categoriesRecurrentes,$donnees['nomCategorie']);
+    }
+}
+
+
 #AFFICHAGE DES INFORMATIONS
 echo "<h3>Informations de l'utilisateur</h3>";
 echo "<p>Pseudonyme : " . $utilisateur->getPseudonyme() . "</p>";
@@ -413,6 +438,13 @@ foreach ($activites as $index => $activite) {   //parcours de toutes les activit
     $scoreCategorie = calculScoreCategorie($activite->getCategories(),$utilisateur->getCategories(),$prctCategories);
     $nouveauScore = $activite->getScore() + $scoreCategorie;
     $activite->setScore($nouveauScore);
+
+    //calcul pour categories récurrentes
+    if ($chaud) {
+        $scoreCategorieRecurrente = calculScoreCategorie($activite->getCategories(),$categoriesRecurrentes,$prctCategories);
+        $nouveauScore = $activite->getScore() + $scoreCategorieRecurrente;
+        $activite->setScore($nouveauScore);
+    }
 
 }
 
