@@ -124,12 +124,26 @@
         }
         </style>
     </head>
+    <script>
+        function verifierTotal() {
+            var prctGeographie = parseInt(document.getElementsByName('prctGeographie')[0].value) || 0;
+            var prctPrix = parseInt(document.getElementsByName('prctPrix')[0].value) || 0;
+            var prctCategories = parseInt(document.getElementsByName('prctCategories')[0].value) || 0;
 
+            var total = prctGeographie + prctPrix + prctCategories;
+
+            if (total !== 100) {
+                alert("La somme des pourcentages doit être égale à 100. Actuellement, c'est " + total + "\nVeuillez corriger, merci.");
+                return false; // Empêche l'envoi du formulaire
+            }
+            return true;
+        }
+    </script>
     <body>
         <?php // Section PHP liée aux données et aux calculs
                 #INCLUDE DES CLASSES
-                include 'classUtilisateur.php';
-                include 'classActivite.php';
+                include 'classesPHP/classUtilisateur.php';
+                include 'classesPHP/classActivite.php';
                 include 'fonctions.php';
 
                 #RECUPERATION DES DONNEES DE L'UTILISATEUR
