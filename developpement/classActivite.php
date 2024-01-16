@@ -1,20 +1,109 @@
-<?php class Activite {
-    // Attributs
-    private $id; // Int
-    private $titre; // String
-    private $description;   // String
-    private $prix;     // Int arrondi à 2 chiffres après la virgule
-    private $nbPersonneMaxi; // Int
-    private $dateLimiteInscription; // Date YYYY-MM-DD
-    private $dateRdv; // Date YYYY-MM-DD
-    private $adresse; // String
-    private $coordGPS; // Array : [0] X ; [1] Y
-    private $organisateur; // String du pseudonyme de l'organisateur
-    private $categories; // Array : [0] catégorie 1 ; [1] catégorie 2 ; [2] catégorie 3 ; ...
-    private $score; // Int 
+<?php
 
-    // Constructeur
-    public function __construct($id=0,$titre="",$description="",$prix=0,$nbPersonneMaxi=0,$dateLimiteInscription="2000-01-01",$dateRdv="2000-01-01",$adresse="",$coordGPS="0,0",$organisateur="",$categories=array(),$score=1){
+/**
+ * @file classActivite.php
+ * @brief Définition de la classe Activite.
+ * @details La classe Activite représente une activité avec différents attributs tels que l'identificateur, le titre, la description, etc.
+ * @author Groupe 23
+ */
+
+class Activite {
+
+
+    /**
+     * @brief Identificateur de l'activité.
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @brief Titre de l'activité.
+     * @var string
+     */
+    private $titre;
+
+    /**
+     * @brief Description de l'activité.
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @brief Prix de l'activité (arrondi à 2 chiffres après la virgule).
+     * @var float
+     */
+    private $prix;
+
+    /**
+     * @brief Nombre maximal de personnes pour l'activité.
+     * @var int
+     */
+    private $nbPersonneMaxi;
+
+    /**
+     * @brief Date limite d'inscription à l'activité au format YYYY-MM-DD.
+     * @var string
+     */
+    private $dateLimiteInscription;
+
+    /**
+     * @brief Date du rendez-vous de l'activité au format YYYY-MM-DD.
+     * @var string
+     */
+    private $dateRdv;
+
+    /**
+     * @brief Adresse de l'activité.
+     * @var string
+     */
+    private $adresse;
+
+    /**
+     * @brief Coordonnées GPS de l'activité, représentées par un tableau [X, Y].
+     * @var array
+     */
+    private $coordGPS;
+
+    /**
+     * @brief Pseudonyme de l'organisateur de l'activité.
+     * @var string
+     */
+    private $organisateur;
+
+    /**
+     * @brief Catégories auxquelles l'activité appartient, représentées par un tableau.
+     * @var array
+     */
+    private $categories;
+
+    /**
+     * @brief Score de l'activité.
+     * @var int
+     */
+    private $score;
+
+    /**
+     * @brief Distance de l'activité.
+     * @var int
+     */
+    private $distance;
+
+    /**
+     * @brief Constructeur de la classe Activite.
+     * @param int $id Identificateur de l'activité.
+     * @param string $titre Titre de l'activité.
+     * @param string $description Description de l'activité.
+     * @param float $prix Prix de l'activité.
+     * @param int $nbPersonneMaxi Nombre maximal de personnes.
+     * @param string $dateLimiteInscription Date limite d'inscription.
+     * @param string $dateRdv Date du rendez-vous.
+     * @param string $adresse Adresse de l'activité.
+     * @param string $coordGPS Coordonnées GPS de l'activité.
+     * @param string $organisateur Pseudonyme de l'organisateur.
+     * @param array $categories Catégories de l'activité.
+     * @param int $score Score de l'activité.
+     */
+    public function __construct($id = 0, $titre = "", $description = "", $prix = 0, $nbPersonneMaxi = 0, $dateLimiteInscription = "2000-01-01", $dateRdv = "2000-01-01", $adresse = "", $coordGPS = "0,0", $organisateur = "", $categories = array(), $score = 1) {
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
@@ -30,117 +119,108 @@
         $this->distance = 0;
     }
 
-    // Get & Set
-    public function getId()
-    {
+    /**
+     * @brief Getter pour l'identificateur de l'activité.
+     * @return int
+     */
+    public function getId() {
         return $this->id;
     }
-    public function getTitre()
-    {
+
+    /**
+     * @brief Getter pour le titre de l'activité.
+     * @return string
+     */
+    public function getTitre() {
         return $this->titre;
     }
-    public function getDescription()
-    {
+
+    /**
+     * @brief Getter pour la description de l'activité.
+     * @return string
+     */
+    public function getDescription() {
         return $this->description;
     }
-    public function getPrix()
-    {
+
+    /**
+     * @brief Getter pour le prix de l'activité.
+     * @return float
+     */
+    public function getPrix() {
         return $this->prix;
     }
-    public function getNbPersonneMaxi()
-    {
+
+    /**
+     * @brief Getter pour le nombre maximal de personnes pour l'activité.
+     * @return int
+     */
+    public function getNbPersonneMaxi() {
         return $this->nbPersonneMaxi;
     }
-    public function getDateLimiteInscription()
-    {
+
+    /**
+     * @brief Getter pour la date limite d'inscription à l'activité.
+     * @return string
+     */
+    public function getDateLimiteInscription() {
         return $this->dateLimiteInscription;
     }
-    public function getDateRdv()
-    {
+
+    /**
+     * @brief Getter pour la date du rendez-vous de l'activité.
+     * @return string
+     */
+    public function getDateRdv() {
         return $this->dateRdv;
     }
-    public function getAdresse()
-    {
+
+    /**
+     * @brief Getter pour l'adresse de l'activité.
+     * @return string
+     */
+    public function getAdresse() {
         return $this->adresse;
     }
-    public function getCoordGPS()
-    {
+
+    /**
+     * @brief Getter pour les coordonnées GPS de l'activité.
+     * @return array
+     */
+    public function getCoordGPS() {
         return $this->coordGPS;
     }
-    public function getOrganisateur()
-    {
+
+    /**
+     * @brief Getter pour le pseudonyme de l'organisateur de l'activité.
+     * @return string
+     */
+    public function getOrganisateur() {
         return $this->organisateur;
     }
-    public function getCategories()
-    {
+
+    /**
+     * @brief Getter pour les catégories de l'activité.
+     * @return array
+     */
+    public function getCategories() {
         return $this->categories;
     }
-    public function getScore()
-    {
+
+    /**
+     * @brief Getter pour le score de l'activité.
+     * @return int
+     */
+    public function getScore() {
         return $this->score;
     }
-    public function getDistance()
-    {
-        return $this->distance;
-    }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-    }
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-    }
-    public function setNbPersonneMaxi($nbPersonneMaxi)
-    {
-        $this->nbPersonneMaxi = $nbPersonneMaxi;
-    }
-    public function setDateLimiteInscription($dateLimiteInscription)
-    {
-        $this->dateLimiteInscription = $dateLimiteInscription;
-    }
-    public function setDateRdv($dateRdv)
-    {
-        $this->dateRdv = $dateRdv;
-    }
-    public function setAdresse($adresse)
-    {
-        $this->adresse = $adresse;
-    }
-    public function setCoordGPS($chaineCoord)
-    {
-        $coordGPSParts = explode(', ', $chaineCoord);
-        $this->coordGPS = [$coordGPSParts[0], $coordGPSParts[1]];
-    }
-    public function setOrganisateur($organisateur)
-    {
-        $this->organisateur = $organisateur;
-    }
-    public function setCategories($categories)
-    {
-        $this->categories = $categories;
-    }
-    public function setScore($score)
-    {
-        $this->score = $score;
-    }
-    public function setDistance($distance)
-    {
-        $this->distance=$distance;
-    }
+    
 
-
-    public function toString()
-    {
+    /**
+     * @brief Méthode pour afficher les informations de l'activité.
+     */
+    public function toString() {
         echo "Titre: " . $this->getTitre() . "<br>";
         echo "Description: " . $this->getDescription() . "<br>";
         echo "Prix: " . $this->getPrix() . "<br>";
@@ -151,11 +231,7 @@
         //echo "Coordonnées GPS: " . $this->getCoordGPS() . "<br>";
         echo "Organisateur: " . $this->getOrganisateur() . "<br>";
         echo "Score: " . $this->getScore() . "<br>";
-        echo "Distance: ". $this->getDistance() . "<br>";
+        echo "Distance: " . $this->getDistance() . "<br>";
     }
-
-
-    
-
 }
 ?>
