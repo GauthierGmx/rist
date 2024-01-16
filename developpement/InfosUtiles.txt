@@ -1,7 +1,0 @@
-f(x) = distMoyenne/(distanceActuelle * (1-poids))
-
-distMoyenne -> distance moyenne de l'utilisateur et de ses differentes activités
-distActuelle -> distanc utilisateur - activité recherchée 
-poids -> 	choisit par l'utilisateur au début
-
-// a mediter 
