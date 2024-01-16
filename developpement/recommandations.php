@@ -274,7 +274,7 @@
 
                 if ($nombreElements > 0) {
                     $moyenne = $somme / $nombreElements;
-                    echo "$moyenne";
+
                 } else {
                     echo "Le tableau est vide, impossible de calculer la moyenne.";
                 }
