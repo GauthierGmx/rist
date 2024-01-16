@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
     <head>
         <meta charset="UTF-8">
@@ -30,16 +30,8 @@
             }
 
             input[type="number"] {
-                background-color: #ffff99;
-                border: 1px solid #cccc00;
-            }
-
-            input[type="submit"] {
-                background-color: #33cc33;
-                color: #fff;
-                border: none;
-                padding: 10px 15px;
-                cursor: pointer;
+                background-color: #eeffff;
+                border: 1px solid #00cccc;
             }
 
             ul {
@@ -112,6 +104,24 @@
             .user-info-box ul li {
                 margin-bottom: 5px;
             }
+
+            .btn-warning {
+            --bs-btn-color: #000;
+            --bs-btn-bg: #ffc107;
+            --bs-btn-border-color: #ffc107;
+            --bs-btn-hover-color: #000;
+            --bs-btn-hover-bg: #ffe127;
+            --bs-btn-hover-border-color: #ffc720;
+            --bs-btn-focus-shadow-rgb: 217,164,6;
+            --bs-btn-active-color: #000;
+            --bs-btn-active-bg: #ffcd39;
+            --bs-btn-active-border-color: #ffc720;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #000;
+            --bs-btn-disabled-bg: #ffc107;
+            --bs-btn-disabled-border-color: #ffc107;
+            font-weight: bold;
+        }
         </style>
     </head>
 
@@ -172,8 +182,8 @@
             <div class="user-info-box">
                 <?php
                     // Section PHP pour l'affichage des informations de l'utilisateur...
-                    echo "<p><strong>Pseudonyme :</strong> " . $utilisateur->getPseudonyme() . "</p>";
-                    echo "<p><strong>Nombre d'activités :</strong> " . $utilisateur->getNbActivite() . "</p>";
+                    echo "<p><strong>Pseudonyme :</strong> " . utf8_encode($utilisateur->getPseudonyme()) . "</p>";
+                    echo "<p><strong>Nombre d'activités :</strong> " . utf8_encode($utilisateur->getNbActivite()) . "</p>";
                     echo "<p><strong>Coordonnées GPS x :</strong> " . $utilisateur->getCoordGPS()[0] . "</p>";
                     echo "<p><strong>Coordonnées GPS y :</strong> " . $utilisateur->getCoordGPS()[1] . "</p>";
                     echo "<p><strong>Budget :</strong> " . $utilisateur->getBudget() . "</p>";
@@ -242,7 +252,7 @@
             echo "<input value=$prctCategories type='number' name='prctCategories' placeholder='20' min='0' max='100' required>";
             ?>
 
-            <input type="submit" value="Rafraîchir">
+            <input class='btn btn-warning' type="submit" value="Rafraîchir">
             </form>
 
             <ul class="liste">
@@ -264,6 +274,7 @@
 
                 if ($nombreElements > 0) {
                     $moyenne = $somme / $nombreElements;
+                    echo "$moyenne";
                 } else {
                     echo "Le tableau est vide, impossible de calculer la moyenne.";
                 }
@@ -284,24 +295,32 @@
                     $nouveauScore = $activite->getScore() + $scoreCategorie;
                     $activite->setScore($nouveauScore);
 
-                    if ($chaud) {
+                    /*if ($chaud) {
                         $scoreCategorieRecurrente = calculScoreCategorie($activite->getCategories(), $categoriesRecurrentes, $prctCategories);
                         $nouveauScore = $activite->getScore() + $scoreCategorieRecurrente;
                         $activite->setScore($nouveauScore);
-                    }
+                    }*/
                 }
 
                 tri($activites);
-
+                
                 foreach ($activites as $index => $activite) {
                     echo "<div class='col-md-4 flex-shrink-0'>";
                     echo "<div class='card'>";
                     echo "<div class='card-body'>";
-                    echo "<h5 class='card-title'>" . $activite->getTitre() . "</h5>";
-                    echo "<p class='card-text'>" . $activite->getDescription() . "</p>";
-                    echo "<p class='card-text'>Prix : " . $activite->getPrix() . "</p>";
-                    echo "<p class='card-text'>Distance : " . $activite->getDistance() . " km</p>";
-                    echo "<p class='card-text'>Score : " . $activite->getScore() . " km</p>";
+                    echo "<h5 class='card-title'>" . utf8_encode($activite->getTitre()) . "</h5>";
+                    echo "<p class='card-text'>" . utf8_encode($activite->getDescription()) . "</p>";
+                    echo "<p class='card-text'>Prix : " . round($activite->getPrix(), 2) . " €</p>";
+                    echo "<p class='card-text'>Distance : " . round($activite->getDistance(),2) . " km</p>";
+                    echo "<p class='card-text'>Score : " . round($activite->getScore(),3) . 
+                         "     (score distance : ". round(calculScoreDistance(haversineDistance($utilisateur->getCoordGPS()[0], $utilisateur->getCoordGPS()[1], $activite->getCoordGPS()[0], $activite->getCoordGPS()[1]), $moyenne, $prctGeographie),3) . 
+                         ", score prix : ".round(calculScorePrix($activite->getPrix(), $utilisateur->getBudget(), $prctPrix),3) .
+                         ", score catégorie : ". round(calculScoreCategorie($activite->getCategories(), $utilisateur->getCategories(), $prctCategories),3) . ")</p>";
+                    echo "<p class='card-text'>Catégorie : ";
+                    foreach($activite->getCategories() as $categorie){
+                        echo utf8_encode($categorie) .", ";
+                    }
+                    echo "</p>";
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";
@@ -315,7 +334,7 @@
                 </div>
             </ul>
             <br>
-            <a href="index.php">&lsaquo; Retourner aux utilisateurs</a>
+            <a class='btn btn-warning' href="index.php">&lsaquo; Retourner aux utilisateurs</a>
 
         </div>
 

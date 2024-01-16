@@ -28,9 +28,26 @@
         }
 
         .user-info a {
-            color: #f39c12;
+            color: #000;
             text-decoration: none;
             font-weight: bold;
+        }
+
+        .btn-warning {
+            --bs-btn-color: #000;
+            --bs-btn-bg: #ffc107;
+            --bs-btn-border-color: #ffc107;
+            --bs-btn-hover-color: #000;
+            --bs-btn-hover-bg: #ffe127;
+            --bs-btn-hover-border-color: #ffc720;
+            --bs-btn-focus-shadow-rgb: 217,164,6;
+            --bs-btn-active-color: #000;
+            --bs-btn-active-bg: #ffcd39;
+            --bs-btn-active-border-color: #ffc720;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #000;
+            --bs-btn-disabled-bg: #ffc107;
+            --bs-btn-disabled-border-color: #ffc107;
         }
     </style>
 </head>
@@ -248,6 +265,7 @@
             ${"utilisateur" . $i}->setCategories(recupererCategoriesHist($link,$pseudonyme));
         }
         ${"utilisateur" . $i}->setGPSHistorique(recupererGPSHistorique($link,$pseudonyme));
+        ${"utilisateur" . $i}->setCategories(array_unique(${"utilisateur" . $i}->getCategories()));
         $serializedUser = urlencode(serialize(${"utilisateur" . $i}));
             echo "<a href='recommandations.php?utilisateur=$serializedUser' class='btn btn-warning'>Voir sa page de recommandation</a>";
             echo "</div>";

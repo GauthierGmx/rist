@@ -91,7 +91,7 @@ function calculScorePrix($prix, $budget, $prctPrix) {
         return $scorePrix * ($prctPrix / 100);
     } else {
         // Retourner un score par défaut (ou gérer le cas de prix égal à zéro selon vos besoins)
-        return 0;
+        return 5 * ($prctPrix / 100);
     }
 }
 
