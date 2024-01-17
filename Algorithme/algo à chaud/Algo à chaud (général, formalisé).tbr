@@ -1,0 +1,109 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>6/11/2023 15:34</date_creation>
+  <Elements>
+    <Action>
+      <Position>790;11</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>bdd, activite
+utilisateur</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>Algo à chaud</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>0</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>9;136</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>bdd</PreAssertion>
+          <PostAssertion>utilisateur
+activite
+listeActiviteHistorique</PostAssertion>
+          <Titre>obtenir les données</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>408;137</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>listeActiviteHistorique</PreAssertion>
+          <PostAssertion>prixMoyenHistorique, 
+distMaxHistorique, 
+tagsCourantHistorique</PostAssertion>
+          <Titre>transformer les données</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>575;201</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>?</PostAssertion>
+              <Titre>trouver les préférences 
+de l'utilisateur</Titre>
+              <DetailsVisible>0</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>-4;387</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>listeActiviteHistorique</PreAssertion>
+                  <PostAssertion>distMax</PostAssertion>
+                  <Titre>prendre la plus grande distance dans l'historique de l'utilisateur</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+                <Action>
+                  <Position>488;386</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>listeActiviteHistorique</PreAssertion>
+                  <PostAssertion>prixMoyenHistorique</PostAssertion>
+                  <Titre>Moyenne des prix des activités de l'historique</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+                <Action>
+                  <Position>1055;385</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>listeActiviteHistorique</PreAssertion>
+                  <PostAssertion>tagsCourantHistorique</PostAssertion>
+                  <Titre>Obtenir les catégories préférées de l'utilisateur</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+              </Enfants>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>999;149</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>activite, distMax,
+prixMoyenHistorique,
+tagsCourantHistorique</PreAssertion>
+          <PostAssertion>liste</PostAssertion>
+          <Titre>traiter les données</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>1493;193</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>liste</PreAssertion>
+          <PostAssertion>∅</PostAssertion>
+          <Titre>afficher la liste</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>
