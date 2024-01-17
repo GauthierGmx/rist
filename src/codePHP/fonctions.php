@@ -236,6 +236,12 @@ function calculScoreCategorie($listeCategorieActivite, $listeCategorieUtilisateu
     return $score * ($prctCategories/100);
 }
 
+
+/**
+ * @brief trie l'array list de catégorie en fonction du score 
+ * 
+ * @param array $activites liste des activités à trier 
+ */
 function tri(&$activites) {
     $n = count($activites);
 
@@ -252,6 +258,16 @@ function tri(&$activites) {
     }
 }
 
+
+/**
+ * @brief retourne les coordonnées d'un utilisateur
+ * 
+ * @param mysql_object $link lien vers  la base de données 
+ * 
+ * @param string $pseudonyme pseudo de l'utilisateur
+ * 
+ * @return float $coordGPS les coordonnées de l'utilisateur
+ */
 function recupererCoordGPS($link,$pseudonyme){
     #La zone géographique de l'utilisateur
     echo "<br>";
@@ -275,6 +291,15 @@ function recupererCoordGPS($link,$pseudonyme){
     return $coordGPS;
 }
 
+/**
+ * @brief retourne le budget saisi par l'utilisateur lors de sa première connexion 
+ * 
+ * @param mysql_object $link lien vers  la base de données 
+ * 
+ * @param string $pseudonyme pseudo de l'utilisateur
+ * 
+ * @return int le budget saisi par l'utilisateur
+ */
 function  recupererBudgetSaisi($link,$pseudonyme){
     #Le budget saisi de l'utilisateur
     echo "<br>";
@@ -293,6 +318,16 @@ function  recupererBudgetSaisi($link,$pseudonyme){
     return $budgetSaisi;
 }
 
+
+/**
+ * @brief retourne le budget moyen de l'utilisateur
+ * 
+ * @param mysql_object $link lien vers  la base de données 
+ * 
+ * @param string $pseudonyme pseudo de l'utilisateur
+ * 
+ * @return int le budget moyen de l'utilisateur l'utilisateur
+ */
 function recupererBudgetMoyen($link,$pseudonyme){
     #Le budget moyen de l'utilisateur
     echo "<br>";
@@ -319,6 +354,15 @@ function recupererBudgetMoyen($link,$pseudonyme){
         return $budgetMoyen;
 }
 
+/**
+ * @brief retourne les catégories préférés de l'utilisateurs
+ * 
+ * @param mysql_object $link lien vers  la base de données 
+ * 
+ * @param string $pseudonyme pseudo de l'utilisateur
+ * 
+ * @return array $categoriesPref les catégories préférées de l'utilisateur
+ */
 function recupererCategoriesPref($link,$pseudonyme){
     #Les 3 categories preferees de l'utilisateur
     echo "<br>";
@@ -346,6 +390,16 @@ function recupererCategoriesPref($link,$pseudonyme){
     return $categoriesPref;
 }
 
+
+/**
+ * @brief retourne les catégories de l'historique de l'utilisateur
+ * 
+ * @param mysql_object $link lien vers  la base de données 
+ * 
+ * @param string $pseudonyme pseudo de l'utilisateur
+ * 
+ * @return array les catégories présentes dans l'historique de l'utilisateur
+ */
 function recupererCategoriesHist($link,$pseudonyme){
     #Les 3 categories les plus récurrentes dans l'historique de l'utilisateur
     // Récupérer d'abord les catégories préférées
@@ -380,6 +434,16 @@ function recupererCategoriesHist($link,$pseudonyme){
     return $categoriesHist;
 }
 
+
+/**
+ * @brief retourne les coordonnées gps des activités dans l'historique de l'utilisateur
+ * 
+ * @param mysql_object $link lien vers  la base de données 
+ * 
+ * @param string $pseudonyme pseudo de l'utilisateur
+ * 
+ * @return array $GPSHistorique
+ */
 function recupererGPSHistorique($link,$pseudonyme){
     echo "<br>";
 
