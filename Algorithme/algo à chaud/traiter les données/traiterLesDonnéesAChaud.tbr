@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>traiter les données</nom>
+  <date_creation>17/11/2023 11:32</date_creation>
+  <Elements>
+    <Action>
+      <Position>1151;22</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>traiter les données</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>249;147</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>prixMoyenHistorique, distMax, tagsCourantsHistorique, 
+utilisateur, activite</PreAssertion>
+          <PostAssertion>activite</PostAssertion>
+          <Titre>Modifier le score des activitées</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>426;248</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>?</PostAssertion>
+              <Titre>parcours de toute les activitées dans la liste activite</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>0</DetailsVideVisible>
+              <Enfants>
+                <Iteration>
+                  <Position>614.5;360.5</Position>
+                  <StyleLien>1</StyleLien>
+                  <Titre>tant que compteur &lt; activite.length</Titre>
+                  <IterationFixe>1</IterationFixe>
+                  <Enfants>
+                    <Action>
+                      <Position>151;480</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>modifier le score en fonction de la distance</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants>
+                        <Action>
+                          <Position>59;649</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>activite,
+score, distance
+distMax</PreAssertion>
+                          <PostAssertion>score</PostAssertion>
+                          <Titre>activite[compteur].score *= 
+((distMax*2)/(distance*3+distMax))+1</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </Action>
+                    <Action>
+                      <Position>947;450</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>modifier le score en fonction du prix</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants>
+                        <Action>
+                          <Position>875;611</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>activite,
+score, prix
+budget</PreAssertion>
+                          <PostAssertion>score</PostAssertion>
+                          <Titre>activite[compteur].score *= 
+((budget*2)/(prix*3+budget))+1</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </Action>
+                    <Action>
+                      <Position>1335;491</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>modifier le score en fonction des catégories les plus courantes</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants>
+                        <Iteration>
+                          <Position>1556.5;650.5</Position>
+                          <StyleLien>1</StyleLien>
+                          <Titre>tant que compteur2 &lt; activite[compteur].
+tags.length</Titre>
+                          <IterationFixe>1</IterationFixe>
+                          <Enfants>
+                            <Condition>
+                              <Position>1530.5;731</Position>
+                              <StyleLien>0</StyleLien>
+                              <estUnique>0</estUnique>
+                              <operationsLogiques>
+                                <operation>
+                                  <Titre>activite[compteur].
+tags[compteur2] IN 
+tagsCourantHistorique</Titre>
+                                  <Enfants>
+                                    <Action>
+                                      <Position>1113;870</Position>
+                                      <StyleLien>1</StyleLien>
+                                      <PreAssertion>activite,
+score</PreAssertion>
+                                      <PostAssertion>score</PostAssertion>
+                                      <Titre>activite[compteur].score *= 1.5</Titre>
+                                      <DetailsVisible>1</DetailsVisible>
+                                      <DetailsVideVisible>1</DetailsVideVisible>
+                                      <Enfants/>
+                                    </Action>
+                                  </Enfants>
+                                </operation>
+                                <operation>
+                                  <Titre>Sinon</Titre>
+                                  <Enfants>
+                                    <Iteration>
+                                      <Position>1624.5;866.5</Position>
+                                      <StyleLien>1</StyleLien>
+                                      <Titre>pour chaque clef dans DICO</Titre>
+                                      <IterationFixe>1</IterationFixe>
+                                      <Enfants>
+                                        <Condition>
+                                          <Position>1515.5;947</Position>
+                                          <StyleLien>0</StyleLien>
+                                          <estUnique>0</estUnique>
+                                          <operationsLogiques>
+                                            <operation>
+                                              <Titre>activite[compteur].tags[compteur2]
+ET tagsCourantHistorique
+IN DICO[clef]</Titre>
+                                              <Enfants>
+                                                <Action>
+                                                  <Position>1375;1054</Position>
+                                                  <StyleLien>1</StyleLien>
+                                                  <PreAssertion>activite,
+score</PreAssertion>
+                                                  <PostAssertion>score</PostAssertion>
+                                                  <Titre>activite[compteur].score *= 1.2</Titre>
+                                                  <DetailsVisible>1</DetailsVisible>
+                                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                                  <Enfants/>
+                                                </Action>
+                                              </Enfants>
+                                            </operation>
+                                          </operationsLogiques>
+                                        </Condition>
+                                      </Enfants>
+                                    </Iteration>
+                                  </Enfants>
+                                </operation>
+                              </operationsLogiques>
+                            </Condition>
+                          </Enfants>
+                        </Iteration>
+                      </Enfants>
+                    </Action>
+                    <Action>
+                      <Position>1831;489</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>modifier le score en fonction de la catégorie préférée</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants>
+                        <Iteration>
+                          <Position>2030.5;620.5</Position>
+                          <StyleLien>1</StyleLien>
+                          <Titre>tant que compteur2 &lt; activite[compteur].
+tags.length</Titre>
+                          <IterationFixe>1</IterationFixe>
+                          <Enfants>
+                            <Condition>
+                              <Position>1942.5;699</Position>
+                              <StyleLien>0</StyleLien>
+                              <estUnique>0</estUnique>
+                              <operationsLogiques>
+                                <operation>
+                                  <Titre>activite[compteur].
+tags[compteur2] IN
+tagsPrefsUtilisateur</Titre>
+                                  <Enfants>
+                                    <Action>
+                                      <Position>1825;852</Position>
+                                      <StyleLien>1</StyleLien>
+                                      <PreAssertion>activite,
+score</PreAssertion>
+                                      <PostAssertion>score</PostAssertion>
+                                      <Titre>activite[compteur].score *= 1.5</Titre>
+                                      <DetailsVisible>1</DetailsVisible>
+                                      <DetailsVideVisible>1</DetailsVideVisible>
+                                      <Enfants/>
+                                    </Action>
+                                  </Enfants>
+                                </operation>
+                                <operation>
+                                  <Titre>Sinon</Titre>
+                                  <Enfants>
+                                    <Iteration>
+                                      <Position>2235.5;817.5</Position>
+                                      <StyleLien>1</StyleLien>
+                                      <Titre>pour chaque clef dans DICO</Titre>
+                                      <IterationFixe>1</IterationFixe>
+                                      <Enfants>
+                                        <Condition>
+                                          <Position>2128.5;957</Position>
+                                          <StyleLien>0</StyleLien>
+                                          <estUnique>0</estUnique>
+                                          <operationsLogiques>
+                                            <operation>
+                                              <Titre>activite[compteur].tags[compteur2]
+ET tagsPrefsUtilisateur
+IN DICO[clef]</Titre>
+                                              <Enfants>
+                                                <Action>
+                                                  <Position>2058;1069</Position>
+                                                  <StyleLien>1</StyleLien>
+                                                  <PreAssertion>activite,
+score</PreAssertion>
+                                                  <PostAssertion>score</PostAssertion>
+                                                  <Titre>activite[compteur].score *= 1.2</Titre>
+                                                  <DetailsVisible>1</DetailsVisible>
+                                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                                  <Enfants/>
+                                                </Action>
+                                              </Enfants>
+                                            </operation>
+                                          </operationsLogiques>
+                                        </Condition>
+                                      </Enfants>
+                                    </Iteration>
+                                  </Enfants>
+                                </operation>
+                              </operationsLogiques>
+                            </Condition>
+                          </Enfants>
+                        </Iteration>
+                      </Enfants>
+                    </Action>
+                    <Action>
+                      <Position>2393;483</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>compteur++</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Iteration>
+              </Enfants>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>1958;163</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>activite</PreAssertion>
+          <PostAssertion>activite</PostAssertion>
+          <Titre>trier les activitées</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Procedure>
+              <Position>1984;288</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>active</PreAssertion>
+              <PostAssertion>activite</PostAssertion>
+              <Titre>tri fusion</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Procedure>
+          </Enfants>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>
