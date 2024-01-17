@@ -68,13 +68,14 @@
         $link = mysqli_connect($host, $user, $pass, $bdd) or die("Impossible de se connecter à la base de données");        
 
         #INITIALISATION DES DONNEES
-        $NB_UTILISATEURS = 3;
+        $NB_UTILISATEURS = 4;
         $utilisateurs = array(); // Initialisez un tableau vide
 
         // Ajoutez des pseudonymes à la liste
         $utilisateurs[] = 'PatPat';
         $utilisateurs[] = 'Laulau64100';
         $utilisateurs[] = 'Sparky';
+        $utilisateurs[] = 'OlivManu';
 
         #RECUPERATION DES DONNEES
         for ($i = 0; $i < $NB_UTILISATEURS; $i++) {

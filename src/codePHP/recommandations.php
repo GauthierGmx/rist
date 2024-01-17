@@ -142,8 +142,8 @@
     <body>
         <?php // Section PHP liée aux données et aux calculs
                 #INCLUDE DES CLASSES
-                include 'classesPHP/classUtilisateur.php';
-                include 'classesPHP/classActivite.php';
+                include './classesPHP/classUtilisateur.php';
+                include './classesPHP/classActivite.php';
                 include 'fonctions.php';
 
                 #RECUPERATION DES DONNEES DE L'UTILISATEUR
