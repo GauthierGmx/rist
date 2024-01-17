@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>8/11/2023 08:30</date_creation>
+  <Elements>
+    <Action>
+      <Position>555;36</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>listeActiviteHistorique,
+positionUtilisateur</PreAssertion>
+      <PostAssertion>distMaxHistorique</PostAssertion>
+      <Titre>prendre la plus grande distance dans l'historique de l'utilisateur</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>1;198</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>listeActiviteHistorique</PreAssertion>
+          <PostAssertion>nbActivite</PostAssertion>
+          <Titre>calculer le nombre d'activité que l'utilisateur à déjà participé</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>78;319</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>listeActiviteHistorique</PreAssertion>
+              <PostAssertion>nbActivite</PostAssertion>
+              <Titre>nbActivite = listeHistorique.lenght</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Iteration>
+          <Position>1354.5;224.5</Position>
+          <StyleLien>1</StyleLien>
+          <Titre>tant que compteur &lt;  nbActivite</Titre>
+          <IterationFixe>1</IterationFixe>
+          <Enfants>
+            <Action>
+              <Position>1382;441</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>compteur</PreAssertion>
+              <PostAssertion>compteur</PostAssertion>
+              <Titre>compteur++</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Condition>
+              <Position>997;337</Position>
+              <StyleLien>0</StyleLien>
+              <estUnique>0</estUnique>
+              <operationsLogiques>
+                <operation>
+                  <Titre>distMaxHistorique &lt; distance</Titre>
+                  <Enfants>
+                    <Action>
+                      <Position>914;441</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>distance</PreAssertion>
+                      <PostAssertion>distMaxHistorique</PostAssertion>
+                      <Titre>distMaxHistorique = distance</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </operation>
+              </operationsLogiques>
+            </Condition>
+            <Procedure>
+              <Position>477;434</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>listeActiviteHistorique, 
+compteur, positionUtilisateur</PreAssertion>
+              <PostAssertion>distance</PostAssertion>
+              <Titre>haversine</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Procedure>
+          </Enfants>
+        </Iteration>
+        <Action>
+          <Position>1581;197</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>distMaxHistorique</PostAssertion>
+          <Titre>retourner distMax</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>652;197</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>compteur</PostAssertion>
+          <Titre>initialiser compteur à 0</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>938;197</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>distMaxHistorique</PostAssertion>
+          <Titre>initialiser distMaxHistorique à 0</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>

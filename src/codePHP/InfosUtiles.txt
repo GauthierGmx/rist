@@ -1,0 +1,7 @@
+Calcul du score via les distances : Distance moyenne/distance activité*(poids/100)
+Calcul du score via le prix : budget/prix*(poids/100)
+Calcul du score via les catégories: 
+Si une catégorie préférée est dans le même ensemble qu'une catégorie de l'activité: +0.5
+Si une catégorie préférée est présente dans les catégories de l'activité: +1 
+resultatComparaisonsCatés*(poids/100)
+Score Final : score de base+score de la distance+score du prix+score des catégories

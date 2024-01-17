@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>8/11/2023 16:42</date_creation>
+  <Elements>
+    <Action>
+      <Position>791;12</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>bdd</PreAssertion>
+      <PostAssertion>listeActiviteRecommandee</PostAssertion>
+      <Titre>Algo à froid</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>9;136</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>bdd</PreAssertion>
+          <PostAssertion>utilisateur
+activite</PostAssertion>
+          <Titre>obtenir les données</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>562;152</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>DIST_BASE,
+PRIX_BASE,
+tagsPrefsUtilisateur</PostAssertion>
+          <Titre>transformer les données</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>516;269</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>?</PostAssertion>
+              <Titre>trouver les préférences 
+de l'utilisateur</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>0</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>10;507</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>DIST_BASE</PostAssertion>
+                  <Titre>prendre la plus grande distance jugée raisonnable pour l'utilisateur</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants>
+                    <Action>
+                      <Position>147;631</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>DIST_BASE = 15</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Action>
+                <Action>
+                  <Position>621;507</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>PRIX_BASE</PostAssertion>
+                  <Titre>Moyenne des prix des activités  jugée raisonnable pour l'utilisateur</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants>
+                    <Action>
+                      <Position>764;642</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>PRIX_BASE = 20</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Action>
+                <Action>
+                  <Position>1179;503</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>tagsPrefsUtilisateur</PostAssertion>
+                  <Titre>Obtenir les catégories préférées de l'utilisateur</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+              </Enfants>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>954;196</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>DIST_BASE,
+PRIX_BASE,
+tagsPrefsUtilisateur,
+activite</PreAssertion>
+          <PostAssertion>score, listeActiviteRecommandee</PostAssertion>
+          <Titre>traiter les données</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>1523;194</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>listeActiviteRecommandee</PreAssertion>
+          <PostAssertion>?</PostAssertion>
+          <Titre>afficher la liste</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>
