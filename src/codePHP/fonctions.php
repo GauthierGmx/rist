@@ -75,6 +75,23 @@ function recupererInfosPrincipalesActivite($link){
     return $activites;
 }
 
+/**
+ * @brief retourne une distance à partir de deux couple de coordonnées 
+ * 
+ * cette fonction prend en parametre les coordonnées x et y de deux points différents 
+ * 
+ * @param float $lat1 latitude du point 1
+ * 
+ * @param float $lon1 longitude du point 1
+ * 
+ * @param float $lat2 latitude du point 2
+ * 
+ * @param float $lon2 longitude du point 2
+ * 
+ * @return $distance la distance entre les deux points 
+ * 
+ * @warning Assurez-vous que le liens de connexion est valide 
+ */
 function haversineDistance($lat1, $lon1, $lat2, $lon2) {
     // Rayon moyen de la Terre en kilomètres
     $earthRadius = 6371;
