@@ -1,5 +1,20 @@
 <?php
 #FONCTIONS DE RECUPERATION DES DONNEES
+
+/**
+ * @brief retourne un array list contenant les catégories d'une activité
+ *
+ * cette fonction prend en paramêtre une connexion à une bdd et un id d'activité
+ *
+ * @param mysqli_object $link le liens vers la base de données .
+ * @param int $id l'id de l'activité.
+ *
+ * @return array la liste des catégories de l'activité .
+ *
+ *
+ * @warning Assurez-vous que les entrées sont des id/connexions valides pour obtenir un résultat correct.
+ *
+ */
 function recupererCategories($link,$id){
     $query = "SELECT C.nomCategorie
     FROM Rist_Activite A
@@ -17,6 +32,17 @@ function recupererCategories($link,$id){
     return $categories;
 }
 
+/**
+ * @brief retourne un array d'objets activités qui correspond à toutes les activités disponibles 
+ * 
+ * cette fonction prend en parametre un lien de connexion vers une base de données 
+ * 
+ * @param mysqli_object $link le liens vers la base de données 
+ * 
+ * @return array la liste des activités disponibles 
+ * 
+ * @warning Assurez-vous que le liens de connexion est valide 
+ */
 function recupererInfosPrincipalesActivite($link){
     $query = "SELECT A.*
     FROM Rist_Activite A
@@ -313,4 +339,7 @@ function recupererGPSHistorique($link,$pseudonyme){
 
     return $GPSHistorique;
 }
+/**
+ * @file fonctions.php
+ */
 ?>
