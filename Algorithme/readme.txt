@@ -1,7 +1,4 @@
-Arborescence des fichiers :
-* Algorithme - Contient l'algorithme
-* docs - Contient la documentation Doxygen
-* Spécification - Contient les spécifications externes du problème algorithmique
-* src - Contient le code source
-
-Nous ferons évoluer l'arborescence de ses dossiers au fur et à mesure de l'avancement du projet.
+Le dossier Algorithme contient :
+  -un dossier algo à chaud contenant notre algorithme à chaud avec les fonctions utilisées
+  -un dossier algo à froid contenant notre algorithme à chaud avec les fonctions utilisées
+  -un dossier diagrammeDesClasses contenant les diagrammes relatifs à nos différentes classes utilisées
