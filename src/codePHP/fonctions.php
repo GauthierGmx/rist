@@ -88,7 +88,7 @@ function recupererInfosPrincipalesActivite($link){
  * 
  * @param float $lon2 longitude du point 2
  * 
- * @return $distance la distance entre les deux points 
+ * @return float $distance la distance entre les deux points en km.
  * 
  * @warning Assurez-vous que le liens de connexion est valide 
  */
@@ -116,8 +116,22 @@ function haversineDistance($lat1, $lon1, $lat2, $lon2) {
     return $distance;
 }
 
-//calcul du score de distance via la formule :
-//scoreDistance = distMoyenne/(distanceUtilisateurActivite * (1-poids))
+
+
+/**
+ * @brief calcul le score de la distance 
+ * 
+ * Prend en parametre une distance, une distance moyenne et un pourcentage 
+ * 
+ * @param float $distanceUtilisateurActivite distance utilisateur - activité
+ * 
+ * @param float $moyenne distance moyenne à laquelle l'utilisateur se déplace
+ * 
+ * @param int  $prctGeo pourcentage ququel l'utilisateur veut que son score de distance corresponde dans sa note finale.
+ * 
+ * @return float $scoreDistance le score de distance de l'activité
+ * 
+ */
 function calculScoreDistance($distanceUtilisateurActivite, $moyenne,$prctGeo) {
 
     // Calculer le score de distance
@@ -126,6 +140,21 @@ function calculScoreDistance($distanceUtilisateurActivite, $moyenne,$prctGeo) {
     return $scoreDistance * ($prctGeo / 100);
 }
 
+
+/**
+ * @brief calcul le score du prix
+ * 
+ * Prend en parametre un prix, une distance moyenne et un pourcentage 
+ * 
+ * @param float $prix prix de l'activité
+ * 
+ * @param float $budget prix moyen que l'utilisateur dépense 
+ * 
+ * @param int  $prctPrix pourcentage auquel l'utilisateur veut que son score de prix corresponde dans sa note finale.
+ * 
+ * @return float  le score de prix de l'activité
+ * 
+ */
 function calculScorePrix($prix, $budget, $prctPrix) {
     // Vérifie si le prix est différent de zéro pour éviter la division par zéro
     if ($prix != 0) {
@@ -138,6 +167,16 @@ function calculScorePrix($prix, $budget, $prctPrix) {
     }
 }
 
+/**
+ * @brief retourne vrai si deux catégories ont un ensemble commun, faux sinon
+ * 
+ * @param string $categorie1 première catégorie
+ * 
+ * @param string $categorie2 deuxième catégorie
+ * 
+ * @return Boolean  true si les catégories ont des ensembles communs, faux sinon 
+ * 
+ */
 function categorieSimilaire($categorie1, $categorie2){
     $bdd= "gvernis_cms"; // Base de données 
     $host= "lakartxela.iutbayonne.univ-pau.fr";
@@ -166,6 +205,18 @@ function categorieSimilaire($categorie1, $categorie2){
     }
 }
 
+
+/**
+ * @brief retourne vrai si deux catégories ont un ensemble commun, faux sinon
+ * 
+ * @param array $listeCategorieActivite la liste des categories de l'activité
+ * 
+ * @param array $listeCategorieUtilisateur la liste des activités récurrentes dans l'historiue de l'utilisateur
+ * 
+ * @param int $prctCategories pourcentage auquel l'utilisateur veut que son score de catégories corresponde dans sa note finale.
+ *  
+ * 
+ */
 function calculScoreCategorie($listeCategorieActivite, $listeCategorieUtilisateur, $prctCategories){
     $score = 0;
     foreach($listeCategorieActivite as $categorieActivite){
