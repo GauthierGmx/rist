@@ -84,8 +84,8 @@ Fonctions</h2></td></tr>
 <tr class="memitem:a040343a0c7a34b72bd95eeae72edc7da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonctions_8php.html#a040343a0c7a34b72bd95eeae72edc7da">recupererCategories</a> ($link, $id)</td></tr>
 <tr class="memdesc:a040343a0c7a34b72bd95eeae72edc7da"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne un array list contenant les catégories d'une activité  <br /></td></tr>
 <tr class="separator:a040343a0c7a34b72bd95eeae72edc7da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c02aa3540f60d3af798dc8e5c4722d1"><td class="memItemLeft" align="right" valign="top"><a id="a6c02aa3540f60d3af798dc8e5c4722d1" name="a6c02aa3540f60d3af798dc8e5c4722d1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>recupererInfosPrincipalesActivite</b> ($link)</td></tr>
+<tr class="memitem:a6c02aa3540f60d3af798dc8e5c4722d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonctions_8php.html#a6c02aa3540f60d3af798dc8e5c4722d1">recupererInfosPrincipalesActivite</a> ($link)</td></tr>
+<tr class="memdesc:a6c02aa3540f60d3af798dc8e5c4722d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne un array d'objets activités qui correspond à toutes les activités disponibles  <br /></td></tr>
 <tr class="separator:a6c02aa3540f60d3af798dc8e5c4722d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87f98f73cc5748a2acc13a3ae6348f14"><td class="memItemLeft" align="right" valign="top"><a id="a87f98f73cc5748a2acc13a3ae6348f14" name="a87f98f73cc5748a2acc13a3ae6348f14"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>haversineDistance</b> ($lat1, $lon1, $lat2, $lon2)</td></tr>
@@ -155,13 +155,42 @@ Fonctions</h2></td></tr>
 <p>cette fonction prend en paramêtre une connexion à une bdd et un id d'activité</p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">float</td><td class="paramname">$link</td><td>le liens vers la base de données . </td></tr>
-    <tr><td class="paramtype">float</td><td class="paramname">$id</td><td>l'id de l'activité.</td></tr>
+    <tr><td class="paramtype">mysqli_object</td><td class="paramname">$link</td><td>le liens vers la base de données . </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>l'id de l'activité.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Renvoie</dt><dd>array la liste des catégories de l'activité .</dd></dl>
 <dl class="section warning"><dt>Avertissement</dt><dd>Assurez-vous que les entrées sont des id/connexions valides pour obtenir un résultat correct. </dd></dl>
+
+</div>
+</div>
+<a id="a6c02aa3540f60d3af798dc8e5c4722d1" name="a6c02aa3540f60d3af798dc8e5c4722d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c02aa3540f60d3af798dc8e5c4722d1">&#9670;&#160;</a></span>recupererInfosPrincipalesActivite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">recupererInfosPrincipalesActivite </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$link</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne un array d'objets activités qui correspond à toutes les activités disponibles </p>
+<p>cette fonction prend en parametre un lien de connexion vers une base de données</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">mysqli_object</td><td class="paramname">$link</td><td>le liens vers la base de données</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>array la liste des activités disponibles</dd></dl>
+<dl class="section warning"><dt>Avertissement</dt><dd>Assurez-vous que le liens de connexion est valide </dd></dl>
 
 </div>
 </div>
