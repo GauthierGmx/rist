@@ -1,3 +1,3 @@
-Le dossier Algorithme contient :
-  -Un fichier représentant un l'algorithme
-  -Un fichier contenant le dictionnaire de données
+Le dossier Specification contient :
+  -Un fichier de documentation sur les spécifications externes en docx
+  -Une copie en pdf
