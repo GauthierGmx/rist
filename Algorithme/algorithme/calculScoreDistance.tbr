@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>23/1/2024 18:10</date_creation>
+  <Elements>
+    <Action>
+      <Position>471;29</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>distanceUtilisateurActivite, moyenne, prctGeo</PreAssertion>
+      <PostAssertion>scoreDistance</PostAssertion>
+      <Titre>calculScoreDistance</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>158;206</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>moyenne,
+distanceUtilisateurActivite</PreAssertion>
+          <PostAssertion>scoreDistance</PostAssertion>
+          <Titre>calculer le score</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>23;327</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>moyenne,
+distanceUtilisateurActivite</PreAssertion>
+              <PostAssertion>scoreDistance</PostAssertion>
+              <Titre>scoreDistance = moyenne / distanceUtilisateurActivite</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>1017;211</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>scoreDistance
+prctGeo</PreAssertion>
+          <PostAssertion>scoreDistance</PostAssertion>
+          <Titre>appliquer le poids</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>894;344</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>scoreDistance
+prctGeo</PreAssertion>
+              <PostAssertion>scoreDistance</PostAssertion>
+              <Titre>scoreDistance = scoreDistance * (prctGeo / 100)</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>1542;225</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>scoreDistance</PreAssertion>
+          <PostAssertion>scoreDistance</PostAssertion>
+          <Titre>retourne scoreDistance</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>

@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>23/1/2024 18:09</date_creation>
+  <Elements>
+    <Action>
+      <Position>931;34</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>prix, budget,
+prctPrix</PreAssertion>
+      <PostAssertion>scorePrix</PostAssertion>
+      <Titre>calculScorePrix</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Condition>
+          <Position>559.5;185</Position>
+          <StyleLien>0</StyleLien>
+          <estUnique>0</estUnique>
+          <operationsLogiques>
+            <operation>
+              <Titre>prix = 0</Titre>
+              <Enfants>
+                <Action>
+                  <Position>416;324</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>∅</PreAssertion>
+                  <PostAssertion>score</PostAssertion>
+                  <Titre>score = 5</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+              </Enfants>
+            </operation>
+            <operation>
+              <Titre>Sinon</Titre>
+              <Enfants>
+                <Action>
+                  <Position>676;327</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>prix, budget</PreAssertion>
+                  <PostAssertion>score</PostAssertion>
+                  <Titre>calculer le score</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants>
+                    <Action>
+                      <Position>637;442</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>prix, budget</PreAssertion>
+                      <PostAssertion>score</PostAssertion>
+                      <Titre>scoreDistance = budget / prix</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Action>
+              </Enfants>
+            </operation>
+          </operationsLogiques>
+        </Condition>
+        <Action>
+          <Position>1126;220</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>scorePrix</PreAssertion>
+          <PostAssertion>scorePrix</PostAssertion>
+          <Titre>appliquer le poids</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>1058;333</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>scorePrix,
+prctPrix</PreAssertion>
+              <PostAssertion>scorePrix</PostAssertion>
+              <Titre>scorePrix = scorePrix * (prctPrix / 100)</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>1531;223</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>scorePrix</PreAssertion>
+          <PostAssertion>scorePrix</PostAssertion>
+          <Titre>retourne scorePrix</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>

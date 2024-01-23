@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>23/1/2024 18:10</date_creation>
+  <Elements>
+    <Action>
+      <Position>819;11</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>∅</PreAssertion>
+      <PostAssertion>∅</PostAssertion>
+      <Titre>algorithme de recommendation de Rist</Titre>
+      <DetailsVisible>0</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>247;181</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>∅</PreAssertion>
+          <PostAssertion>activites,
+utilisateur</PostAssertion>
+          <Titre>obtenir les doonnées de 
+l'utilisateur et des activités</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>124;326</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>∅</PreAssertion>
+              <PostAssertion>activites</PostAssertion>
+              <Titre>récupérer les activités</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>501;328</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>∅</PreAssertion>
+              <PostAssertion>utilisateur</PostAssertion>
+              <Titre>récupérer utilisateur</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>4086;194</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>∅</PreAssertion>
+          <PostAssertion>∅</PostAssertion>
+          <Titre>Trier les activités 
+suivant le score</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Procedure>
+              <Position>4106;322</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>∅</PreAssertion>
+              <PostAssertion>∅</PostAssertion>
+              <Titre>triABulle</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Procedure>
+          </Enfants>
+        </Action>
+        <Iteration>
+          <Position>1148.5;159.5</Position>
+          <StyleLien>1</StyleLien>
+          <Titre>pour chaque activité</Titre>
+          <IterationFixe>1</IterationFixe>
+          <Enfants>
+            <Action>
+              <Position>867;234</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>utilisateur.getGPSHistorique
+activite.getGPSHistorique</PreAssertion>
+              <PostAssertion>listeDis</PostAssertion>
+              <Titre>calculer la distance entre 
+l'utilisateur et chaque activités
+et le mettre dans un array</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Procedure>
+                  <Position>728;441</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>utilisateur.getGPSHistorique
+activite.getGPSHistorique</PreAssertion>
+                  <PostAssertion>distance</PostAssertion>
+                  <Titre>haversineDistance</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Procedure>
+                <Action>
+                  <Position>1291;445</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>distance</PreAssertion>
+                  <PostAssertion>listeDis</PostAssertion>
+                  <Titre>listeDis ← distance</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+              </Enfants>
+            </Action>
+          </Enfants>
+        </Iteration>
+        <Action>
+          <Position>4404;193</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>∅</PreAssertion>
+          <PostAssertion>∅</PostAssertion>
+          <Titre>retourne activités</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Iteration>
+          <Position>2439.5;167.5</Position>
+          <StyleLien>1</StyleLien>
+          <Titre>pour chaque activité</Titre>
+          <IterationFixe>1</IterationFixe>
+          <Enfants>
+            <Action>
+              <Position>1993;267</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>∅</PreAssertion>
+              <PostAssertion>∅</PostAssertion>
+              <Titre>Calculer le score de chaque attribut</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Procedure>
+                  <Position>1311;679</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>distanceUtilisateurActivite, moyenne, prctGeo</PreAssertion>
+                  <PostAssertion>scoreDistance</PostAssertion>
+                  <Titre>calculScoreDistance</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Procedure>
+                <Procedure>
+                  <Position>1985;672</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>prix, budget,
+prctPrix</PreAssertion>
+                  <PostAssertion>scorePrix</PostAssertion>
+                  <Titre>calculScorePrix</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Procedure>
+                <Procedure>
+                  <Position>2465;667</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>listeCategorieActivite
+listeCategorieUtuilisateur
+prctCategories</PreAssertion>
+                  <PostAssertion>scoreCategorie</PostAssertion>
+                  <Titre>calculScoreCategorie</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Procedure>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>2958;291</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>scoreDist, scorePrix, 
+scoreCategorie</PreAssertion>
+              <PostAssertion>scoreFinal</PostAssertion>
+              <Titre>Calculer le score final</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>2942;420</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>scoreDist, scorePrix, 
+scoreCategorie</PreAssertion>
+                  <PostAssertion>scoreFinal</PostAssertion>
+                  <Titre>Faire la somme des scores</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants>
+                    <Action>
+                      <Position>2846;547</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>scoreDist, scorePrix, 
+scoreCategorie</PreAssertion>
+                      <PostAssertion>scoreFinal</PostAssertion>
+                      <Titre>scoreFinal = scoreDist + scorePrix + scoreCategorie</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Action>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>3605;272</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>scoreFinal,
+activite</PreAssertion>
+              <PostAssertion>∅</PostAssertion>
+              <Titre>activite.setScore(scoreFinal)</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Iteration>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>

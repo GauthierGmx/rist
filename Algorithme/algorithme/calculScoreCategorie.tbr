@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>23/1/2024 18:09</date_creation>
+  <Elements>
+    <Action>
+      <Position>699;21</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>listeCategorieActivite
+listeCategorieUtuilisateur
+prctCategories</PreAssertion>
+      <PostAssertion>score</PostAssertion>
+      <Titre>calculScoreCategorie</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Iteration>
+          <Position>825.5;159.5</Position>
+          <StyleLien>1</StyleLien>
+          <Titre>pour chaque 
+categories dans listeCategorieActivite</Titre>
+          <IterationFixe>1</IterationFixe>
+          <Enfants>
+            <Iteration>
+              <Position>825.5;254.5</Position>
+              <StyleLien>1</StyleLien>
+              <Titre>pour chaque categories dans listeCategorieUtilisateur</Titre>
+              <IterationFixe>1</IterationFixe>
+              <Enfants>
+                <Condition>
+                  <Position>710.5;335</Position>
+                  <StyleLien>0</StyleLien>
+                  <estUnique>0</estUnique>
+                  <operationsLogiques>
+                    <operation>
+                      <Titre>catUtilisateur 
+== catActivit</Titre>
+                      <Enfants>
+                        <Action>
+                          <Position>486;491</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>score</PreAssertion>
+                          <PostAssertion>score</PostAssertion>
+                          <Titre>score ← score + 1</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </operation>
+                    <operation>
+                      <Titre>Sinon</Titre>
+                      <Enfants>
+                        <Condition>
+                          <Position>819.5;495</Position>
+                          <StyleLien>1</StyleLien>
+                          <estUnique>1</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>categoriesSimilaires(catUtilisateur, catActivite</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>800;605</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>score</PreAssertion>
+                                  <PostAssertion>score</PostAssertion>
+                                  <Titre>score ← score + 0.5</Titre>
+                                  <DetailsVisible>1</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>Sinon</Titre>
+                              <Enfants/>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                      </Enfants>
+                    </operation>
+                  </operationsLogiques>
+                </Condition>
+              </Enfants>
+            </Iteration>
+          </Enfants>
+        </Iteration>
+        <Action>
+          <Position>484;159</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>∅</PreAssertion>
+          <PostAssertion>score</PostAssertion>
+          <Titre>score ← 0</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>1093;191</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>prctCategories, score</PreAssertion>
+          <PostAssertion>score</PostAssertion>
+          <Titre>appliquer le poids</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>1084;322</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>prctCategories, score</PreAssertion>
+              <PostAssertion>score</PostAssertion>
+              <Titre>score ← score * 
+(prctCategorie / 100)</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>1563;168</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>score</PreAssertion>
+          <PostAssertion>score</PostAssertion>
+          <Titre>retourner score</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>

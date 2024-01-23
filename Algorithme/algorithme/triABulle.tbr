@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>23/1/2024 15:18</date_creation>
+  <Elements>
+    <Action>
+      <Position>697;55</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>&amp;activites</PreAssertion>
+      <PostAssertion>&amp;activites</PostAssertion>
+      <Titre>triABulle</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>358;201</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>activites</PreAssertion>
+          <PostAssertion>nbActivite</PostAssertion>
+          <Titre>nbActivite ← activites.lenght</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Iteration>
+          <Position>811.5;227.5</Position>
+          <StyleLien>1</StyleLien>
+          <Titre>pour i de 0 à
+nbActivite - 1</Titre>
+          <IterationFixe>1</IterationFixe>
+          <Enfants>
+            <Iteration>
+              <Position>812.5;324.5</Position>
+              <StyleLien>1</StyleLien>
+              <Titre>pour j de 0 à
+i - 1</Titre>
+              <IterationFixe>1</IterationFixe>
+              <Enfants>
+                <Condition>
+                  <Position>737.5;406</Position>
+                  <StyleLien>1</StyleLien>
+                  <estUnique>1</estUnique>
+                  <operationsLogiques>
+                    <operation>
+                      <Titre>activites[j].getScore() &lt;
+activites[j+1].getScore()</Titre>
+                      <Enfants>
+                        <Action>
+                          <Position>338;567</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>activites,
+j</PreAssertion>
+                          <PostAssertion>temp</PostAssertion>
+                          <Titre>temp ← activites[j]</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                        <Action>
+                          <Position>667;568</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>activites,
+j</PreAssertion>
+                          <PostAssertion>activites</PostAssertion>
+                          <Titre>activite[j] ← activites[j+1]</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                        <Action>
+                          <Position>1068;567</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>temp, j</PreAssertion>
+                          <PostAssertion>activites</PostAssertion>
+                          <Titre>activites[j+1] ← temp</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </operation>
+                    <operation>
+                      <Titre>Sinon</Titre>
+                      <Enfants/>
+                    </operation>
+                  </operationsLogiques>
+                </Condition>
+              </Enfants>
+            </Iteration>
+          </Enfants>
+        </Iteration>
+        <Action>
+          <Position>1046;200</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>activites</PreAssertion>
+          <PostAssertion>activites</PostAssertion>
+          <Titre>retourne activites</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>

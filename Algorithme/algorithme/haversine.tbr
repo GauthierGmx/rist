@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>23/1/2024 15:06</date_creation>
+  <Elements>
+    <Action>
+      <Position>656;31</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>lat1, lon1, lat2, lon2</PreAssertion>
+      <PostAssertion>$distance</PostAssertion>
+      <Titre>haversineDistance</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>180;197</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>earthRadius</PostAssertion>
+          <Titre>earthRadius ← 6371</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>480;194</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>lat1, lon1,
+lat1, lon2</PreAssertion>
+          <PostAssertion>lat1, lon1,
+lat2, lon2</PostAssertion>
+          <Titre>passer les valeurs en randiants</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>62;342</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>lat1</PreAssertion>
+              <PostAssertion>lat1</PostAssertion>
+              <Titre>lat1 ← deg2rad(lat1)</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>365;342</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>lon1</PreAssertion>
+              <PostAssertion>lon1</PostAssertion>
+              <Titre>lon1 ← deg2rad(lon1)</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>685;342</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>lat2</PreAssertion>
+              <PostAssertion>lat2</PostAssertion>
+              <Titre>lat2 ← deg2rad(lat2)</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>990;342</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>lon2</PreAssertion>
+              <PostAssertion>lon2</PostAssertion>
+              <Titre>lon2 ← deg2rad(lon2)</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>1434;207</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>∅</PreAssertion>
+          <PostAssertion>∅</PostAssertion>
+          <Titre>calculer la différence des 2 coordonnées</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>1315;343</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>lat2, 
+lat1</PreAssertion>
+              <PostAssertion>latDelta</PostAssertion>
+              <Titre>latDelta ← lat2 - lat1</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>1640;343</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>lon1, 
+lon2</PreAssertion>
+              <PostAssertion>lonDelta</PostAssertion>
+              <Titre>lonDelta ← lon2 - lon1</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>2557;193</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>latDelta, earthRadius,
+lonDelta,
+lat1, lat2,</PreAssertion>
+          <PostAssertion>distance</PostAssertion>
+          <Titre>calculer la distance</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>2006;343</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>latDelta,
+lonDelta,
+lat1, lat2</PreAssertion>
+              <PostAssertion>a</PostAssertion>
+              <Titre>a ← sin(latDelta / 2) ** 2 + cos(lat1) * cos(lat2) * sin(lonDelta / 2) **2</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>2625;344</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>a</PreAssertion>
+              <PostAssertion>c</PostAssertion>
+              <Titre>c ← 2 * atan2(sqrt($a), sqrt(1 - $a))</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>2985;344</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>c, 
+earthRadius</PreAssertion>
+              <PostAssertion>distance</PostAssertion>
+              <Titre>distance ← c *earthRadius </Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>3074;191</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>distance</PreAssertion>
+          <PostAssertion>distance</PostAssertion>
+          <Titre>retourner distance</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>
