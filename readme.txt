@@ -12,6 +12,7 @@ Collaborateurs :
 
 Arborescence des fichiers :
   * Algorithme - Contient l'algorithme
-  * docs - Contient la documentation Doxygen
   * Spécification - Contient les spécifications externes du problème algorithmique
+  * developpement - Contient les pages web du projet
+  * docs - Contient la documentation Doxygen
   * src - Contient le code source
