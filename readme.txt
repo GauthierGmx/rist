@@ -8,6 +8,7 @@ Collaborateurs :
   * Julien Loridant 
   * Axel Marrier
   * Solène Martin
+  * Gabriel Vernis
 
 Arborescence des fichiers :
   * Algorithme - Contient l'algorithme
