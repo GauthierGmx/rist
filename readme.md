@@ -1,7 +1,7 @@
-# RIST - Réseau social aidant l'organisation d'activités collaboratives
+# RIST - Application web aidant l'organisation d'activités collaboratives
 
 ## Description
-RIST est une application réseau social facilitant l'organisation d'activités collaboratives, appelées des "Rist". Conçue pour être utilisée par des particuliers et des professionnels, elle vise à permettre aux utilisateurs de se rencontrer et de partager des expériences ensemble, tout en respectant un budget limité.
+RIST est une application web facilitant l'organisation d'activités collaboratives, appelées des "Rist". Conçue pour être utilisée par des particuliers et des professionnels, elle vise à permettre aux utilisateurs de se rencontrer et de partager des expériences ensemble, tout en respectant un budget limité.
 
 ## Objectif
 L'application cible principalement :
