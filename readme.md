@@ -25,10 +25,3 @@ RIST/
 │-- docs/             # Contient la documentation Doxygen
 │-- src/              # Contient le code source
 ```
-
-## Contact
-Pour toute question ou suggestion, contactez l'équipe via GitHub ou par email.
-
----
-⚡ *Saviez-vous ?* Les réseaux sociaux collaboratifs peuvent réduire l'isolement social en facilitant les rencontres basées sur des centres d'intérêt communs !
-
